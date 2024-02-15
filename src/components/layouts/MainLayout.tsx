@@ -1,7 +1,9 @@
-import { PropsWithChildren } from "react";
+import { NavBar } from "@/navigation/NavBar";
 import { Helmet } from "react-helmet";
+import { Outlet } from "react-router-dom";
+import { Footer } from "./Footer";
 
-export const Main = ({ children }: PropsWithChildren) => {
+export const MainLayout = () => {
   return (
     <main className="pb-8">
       <Helmet>
@@ -9,6 +11,7 @@ export const Main = ({ children }: PropsWithChildren) => {
         <meta name="description" content="Takuya's homepage" />
         <meta name="author" content="Angel Dijoux" />
         <meta name="author" content="elki" />
+        <link rel="icon" type="image/svg+xml" href="/star-rounded.ico" />
         <link rel="apple-touch-icon" href="apple-touch-icon.png" />
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         <meta name="twitter:title" content="Angel Dijoux" />
@@ -20,8 +23,12 @@ export const Main = ({ children }: PropsWithChildren) => {
         <meta property="og:image" content="https://TODO" />
         <title>Angel Dijoux - Homepage</title>
       </Helmet>
+      <NavBar path="/" />
+      <div className="container pt-24 max-w-xl">
+        <Outlet />
 
-      <div className="container pt-14">{children}</div>
+        <Footer />
+      </div>
     </main>
   );
 };
