@@ -1,6 +1,8 @@
 import { type PropsWithChildren } from "react";
 import { Link } from "react-router-dom";
 import { Logo } from "@/components/Logo";
+import { Switch } from "@/components/ui/switch";
+import { useTheme } from "@/components/ThemeProvider";
 
 type LinkItemProps = {
   href: string;
@@ -39,6 +41,8 @@ type NavBarProps = {
 };
 
 export function NavBar({ path }: Readonly<NavBarProps>) {
+  const { setTheme, theme } = useTheme();
+
   return (
     <div className="fixed top-0 left-0 w-full bg-white bg-opacity-40 dark:bg-gray-900 bg-blur-10 z-20">
       <div className="container flex p-2 max-w-2xl flex-wrap items-center justify-between">
@@ -51,6 +55,9 @@ export function NavBar({ path }: Readonly<NavBarProps>) {
             Works
           </LinkItem>
         </div>
+        <Switch
+          onCheckedChange={() => setTheme(theme == "light" ? "dark" : "light")}
+        />
       </div>
     </div>
   );
