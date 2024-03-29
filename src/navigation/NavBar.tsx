@@ -44,7 +44,7 @@ export function NavBar({ path }: Readonly<NavBarProps>) {
   const { setTheme, theme } = useTheme();
 
   return (
-    <div className="fixed top-0 left-0 w-full bg-white bg-opacity-40 dark:bg-gray-900 bg-blur-10 z-20">
+    <div className="fixed flex w-full justify-start items-center  bg-gradient-to-b from-transparent to-background bg-repeat bg-radial bg-cover backdrop-blur-md text-base leading-14 z-20">
       <div className="container flex p-2 max-w-2xl flex-wrap items-center justify-between">
         <div className="mr-5">
           <Logo />

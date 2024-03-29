@@ -77,6 +77,12 @@ module.exports = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      backgroundImage: {
+        "radial-highlight-dark":
+          "radial-gradient(circle at 50% 100%, rgba(46, 54, 79, 0.4) 1%, rgba(11,25,6,0.8) 100%)",
+        "radial-highlight-light":
+          "radial-gradient(circle at 50% 100%, rgba(255, 255, 255, 0.4) 1%,rgba(222,244,225,0.8) 100%)",
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],
