@@ -24,7 +24,7 @@ export const AnimatedLayout = ({
       exit="exit"
       variants={variants}
       transition={{ duration: 0.4, type: "easeInOut" }}
-      style={{ position: "relative" }}
+      style={{ position: "relative", marginBottom: 24 }}
     >
       {title && (
         <Helmet>
