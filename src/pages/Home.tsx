@@ -16,7 +16,7 @@ import {
 export function Home() {
   return (
     <AnimatedLayout>
-      <div className="rounded-lg mb-6 p-3 text-center bg-muted backdrop-blur-lg">
+      <div className="rounded-lg mb-6 p-3 text-center backdrop-blur-lg bg-accent">
         <Typography variant="h3" affects="large">
           Hi, I'm an software engineer!
         </Typography>
