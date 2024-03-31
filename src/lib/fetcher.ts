@@ -3,7 +3,7 @@ export type ArgProps<T> = {
 };
 
 const PROD_BASE_URL = "TODO : DEFINE";
-const DEV_BASE_URL = "http://127.0.0.1:8080/api";
+const DEV_BASE_URL = "http://192.168.1.21:8080/api";
 
 const BASE_URL =
   process.env.NODE_ENV === "production" ? PROD_BASE_URL : DEV_BASE_URL;
