@@ -81,7 +81,7 @@ module.exports = {
         "radial-highlight-dark":
           "radial-gradient(circle at 50% 100%, rgba(46, 54, 79, 0.4) 1%, rgba(11,25,6,0.8) 100%)",
         "radial-highlight-light":
-          "radial-gradient(circle at 50% 100%, rgba(255, 255, 255, 0.4) 1%,rgba(222,244,225,0.8) 100%)",
+          "radial-gradient(circle at 50% 100%, rgba(255, 255, 255, 0.4) 1%, rgba(230, 230, 230, 0.8) 100%)",
       },
     },
   },

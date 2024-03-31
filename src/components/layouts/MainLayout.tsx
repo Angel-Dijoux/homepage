@@ -24,10 +24,11 @@ export const MainLayout = () => {
         <title>Angel Dijoux - Homepage</title>
       </Helmet>
       <NavBar path="/" />
-      <div className="container pt-24 max-w-xl">
-        <Outlet />
-
-        <Footer />
+      <div className="container max-w-2xl pt-24">
+        <div className=" max-w-xl">
+          <Outlet />
+          <Footer />
+        </div>
       </div>
     </main>
   );

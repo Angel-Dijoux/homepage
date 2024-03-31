@@ -12,11 +12,13 @@ import {
   LinkedInLogoIcon,
   DoubleArrowRightIcon,
 } from "@radix-ui/react-icons";
+import Planet from "@/components/planet";
 
 export function Home() {
   return (
     <AnimatedLayout>
-      <div className="rounded-lg mb-6 p-3 text-center backdrop-blur-lg bg-accent">
+      <Planet />
+      <div className="relative rounded-lg mb-6 p-3 text-center backdrop-blur-lg bg-accent">
         <Typography variant="h3" affects="large">
           Hi, I'm an software engineer!
         </Typography>
