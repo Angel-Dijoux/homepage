@@ -1,8 +1,8 @@
 import { PropsWithChildren } from "react";
 import { Img } from "react-image";
-import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
 import Markdown from "react-markdown";
+import { Link } from "@tanstack/react-router";
 
 type GridItemProps = {
   href: string;
@@ -12,17 +12,15 @@ type GridItemProps = {
 
 type WorkGridItemProps = {
   id: number;
-  category?: string;
 } & Omit<GridItemProps, "href">;
 
 export const WorkGridItem = ({
   children,
-  category = "works",
   id,
   title,
   thumbnail,
 }: Readonly<PropsWithChildren<WorkGridItemProps>>) => (
-  <Link to={`/${category}/${id}`}>
+  <Link to="/works/$id" params={{ id: String(id) }}>
     <div className="w-full text-center border bg-radial-highlight-light dark:bg-radial-highlight-dark rounded-2xl py-3 px-3">
       <Img
         src={thumbnail}
@@ -30,7 +28,7 @@ export const WorkGridItem = ({
         className="rounded-xl border"
         loading="lazy"
       />
-      <Link to={`/${category}/${id}`} target="_blank">
+      <Link to="/works/$id" params={{ id: String(id) }}>
         <Button variant="link" className="p-0 m-0 text-base">
           <div className="mt-2 text-lg">
             <Markdown>{title}</Markdown>

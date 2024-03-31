@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { ButtonWithIcon } from "@/components/ui/ButtonWithIcon";
 import SectionTitle from "@/components/ui/SectionTitle";
 import Typography from "@/components/ui/Typography";
-import { Link } from "react-router-dom";
 import {
   GitHubLogoIcon,
   InstagramLogoIcon,
@@ -13,8 +12,13 @@ import {
   DoubleArrowRightIcon,
 } from "@radix-ui/react-icons";
 import Planet from "@/components/planet";
+import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
-export function Home() {
+export const Route = createLazyFileRoute("/")({
+  component: Home,
+});
+
+function Home() {
   return (
     <AnimatedLayout>
       <Planet />
@@ -52,7 +56,7 @@ export function Home() {
           privacy as a point of honor in all the missions she undertakes.
         </Paragraph>
         <div className="flex justify-center my-4">
-          <Link to="works">
+          <Link to="/works">
             <ButtonWithIcon IconRight={<DoubleArrowRightIcon />}>
               Portefolio
             </ButtonWithIcon>
@@ -64,7 +68,7 @@ export function Home() {
         <SectionTitle variant="h3">Madly in Love with</SectionTitle>
         <Paragraph>
           Music, Quantum Computing,{" "}
-          <Link to="https://www.instagram.com/elki_8/" target="_blank">
+          <Link href="https://www.instagram.com/elki_8/" target="_blank">
             <Button variant="link" className="p-0 m-0 text-base">
               Photography
             </Button>
@@ -76,7 +80,7 @@ export function Home() {
       <Section delay={0.3}>
         <SectionTitle variant="h3">Arround the World Wide Web</SectionTitle>
         <div className="flex justify-center items-start flex-col gap-2 mt-2">
-          <Link to="https://github.com/Angel-Dijoux" target="_blank">
+          <Link href="https://github.com/Angel-Dijoux" target="_blank">
             <ButtonWithIcon
               variant="ghost"
               IconLeft={<GitHubLogoIcon width={ICON_SIZE} height={ICON_SIZE} />}
@@ -84,7 +88,7 @@ export function Home() {
               @Angel-Dijoux
             </ButtonWithIcon>
           </Link>
-          <Link to="https://www.instagram.com/elki_8/" target="_blank">
+          <Link href="https://www.instagram.com/elki_8/" target="_blank">
             <ButtonWithIcon
               variant="ghost"
               IconLeft={
@@ -95,7 +99,7 @@ export function Home() {
             </ButtonWithIcon>
           </Link>
           <Link
-            to="https://www.linkedin.com/in/angel-d-4091a3253/"
+            href="https://www.linkedin.com/in/angel-d-4091a3253/"
             target="_blank"
           >
             <ButtonWithIcon
