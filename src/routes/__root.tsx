@@ -1,10 +1,10 @@
+import { Footer } from "@/components/layouts/Footer";
 import { NavBar } from "@/navigation/NavBar";
+import { createRootRoute, Outlet } from "@tanstack/react-router";
 import { Helmet } from "react-helmet";
-import { Outlet } from "react-router-dom";
-import { Footer } from "./Footer";
 
-export const MainLayout = () => {
-  return (
+export const Route = createRootRoute({
+  component: () => (
     <main className="pb-8">
       <Helmet>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -23,7 +23,7 @@ export const MainLayout = () => {
         <meta property="og:image" content="https://TODO" />
         <title>Angel Dijoux - Homepage</title>
       </Helmet>
-      <NavBar path="/" />
+      <NavBar />
       <div className="container max-w-2xl pt-24">
         <div className=" max-w-xl">
           <Outlet />
@@ -31,5 +31,5 @@ export const MainLayout = () => {
         </div>
       </div>
     </main>
-  );
-};
+  ),
+});

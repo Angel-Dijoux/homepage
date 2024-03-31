@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
 import { StarIcon } from "./icons/Star";
 import styled from "@emotion/styled";
 import Typography from "./ui/Typography";
+import { Link } from "@tanstack/react-router";
 
 const LogoBox = styled.span`
   display: flex;

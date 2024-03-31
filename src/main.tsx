@@ -1,11 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import { RouterProvider } from "react-router-dom";
-import { router } from "./navigation/router.tsx";
 import { ThemeProvider } from "./components/ThemeProvider.tsx";
 import { SWRConfig } from "swr";
 import fetcher from "./lib/fetcher.ts";
+import { RouterProvider, createRouter } from "@tanstack/react-router";
+import { routeTree } from "./routeTree.gen";
+
+const router = createRouter({ routeTree });
+
+declare module "@tanstack/react-router" {
+  interface Register {
+    router: typeof router;
+  }
+}
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -16,7 +24,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       }}
     >
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-        <RouterProvider router={router} future={{ v7_startTransition: true }} />
+        <RouterProvider router={router} />
       </ThemeProvider>
     </SWRConfig>
   </React.StrictMode>

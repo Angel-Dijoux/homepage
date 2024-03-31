@@ -1,46 +1,9 @@
-import { type PropsWithChildren } from "react";
-import { Link } from "react-router-dom";
 import { Logo } from "@/components/Logo";
-import { Switch } from "@/components/ui/switch";
 import { useTheme } from "@/components/ThemeProvider";
+import { Switch } from "@/components/ui/switch";
+import { Link } from "@tanstack/react-router";
 
-type LinkItemProps = {
-  href: string;
-  path: string;
-  target?: string;
-};
-
-const LinkItem = ({
-  href,
-  path,
-  target,
-  children,
-  ...props
-}: PropsWithChildren<LinkItemProps>) => {
-  const active = path === href;
-  const inactiveColor = "text-gray-800 dark:text-white";
-  const activeBgColor = "bg-green-500";
-  const activeTextColor = "text-gray-900";
-
-  return (
-    <Link
-      to={href}
-      className={`block p-2 ${active ? activeBgColor : ""} ${
-        active ? activeTextColor : inactiveColor
-      }`}
-      target={target}
-      {...props}
-    >
-      {children}
-    </Link>
-  );
-};
-
-type NavBarProps = {
-  path: string;
-};
-
-export function NavBar({ path }: Readonly<NavBarProps>) {
+export function NavBar() {
   const { setTheme, theme } = useTheme();
 
   return (
@@ -51,9 +14,9 @@ export function NavBar({ path }: Readonly<NavBarProps>) {
         </div>
 
         <div className="flex-col md:flex-row hidden md:flex w-full md:w-auto items-center flex-grow mt-4 md:mt-0">
-          <LinkItem href="/works" path={path}>
+          <Link to="/works" className="block p-2 [&.active]:font-bold">
             Works
-          </LinkItem>
+          </Link>
         </div>
         <Switch
           onCheckedChange={() => setTheme(theme == "light" ? "dark" : "light")}
