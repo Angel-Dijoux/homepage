@@ -63,7 +63,7 @@ export default function Planet() {
       globe.destroy();
       window.removeEventListener("resize", onResize);
     };
-  }, []);
+  }, [theme]);
 
   return (
     <div
