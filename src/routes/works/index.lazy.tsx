@@ -1,34 +1,33 @@
 import { Divider } from "@/components/Divider";
 import { WorkGridItem } from "@/components/GridItem";
+import { MarkdownWrapper } from "@/components/MarkdownWrapper";
 import { Section } from "@/components/Section";
 import { AnimatedLayout } from "@/components/layouts/AnimatedLayout";
-import Typography from "@/components/ui/Typography";
-import useSWR from "swr";
-import Markdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import rehypeHighlight from "rehype-highlight";
-import { createLazyFileRoute } from "@tanstack/react-router";
-import { Skeleton } from "@/components/ui/skeleton";
 import { SkeletonImage } from "@/components/skeletons/SkeletonImage";
+import Typography from "@/components/ui/Typography";
+import { Skeleton } from "@/components/ui/skeleton";
+import { createLazyFileRoute } from "@tanstack/react-router";
+import useSWR from "swr";
 
 export const Route = createLazyFileRoute("/works/")({
   component: Works,
 });
 
-interface Label {
+type Label = {
   id: number;
   label: string;
-}
+};
 
-interface Project {
+export type Project = {
   id: number;
   title: string;
   description: string;
+  image_url: string;
   url: string;
   second_url?: string;
   is_sio: boolean;
   labels?: Label[];
-}
+};
 
 const calculateDelay = (index: number, offset: number) => {
   return (offset + index * 0.55 * 0.1) % 0.3;
@@ -51,15 +50,10 @@ function Works() {
             <WorkGridItem
               id={project.id}
               title={project.title}
-              thumbnail="https://cdn.sanity.io/images/wuakm03c/production/67dc4f6e5d922f4e44481e4084f0d8b4a9ac4299-3840x2160.png?w=3840&fit=max&auto=format"
+              thumbnail={project.image_url}
             >
               <div className="mt-4">
-                <Markdown
-                  remarkPlugins={[remarkGfm]}
-                  rehypePlugins={[rehypeHighlight]}
-                >
-                  {project.description}
-                </Markdown>
+                <MarkdownWrapper content={project.description} />
               </div>
             </WorkGridItem>
           </Section>
@@ -80,15 +74,10 @@ function Works() {
             <WorkGridItem
               id={project.id}
               title={project.title}
-              thumbnail="https://cdn.sanity.io/images/wuakm03c/production/67dc4f6e5d922f4e44481e4084f0d8b4a9ac4299-3840x2160.png?w=3840&fit=max&auto=format"
+              thumbnail={project.image_url}
             >
               <div className="mt-4">
-                <Markdown
-                  remarkPlugins={[remarkGfm]}
-                  rehypePlugins={[rehypeHighlight]}
-                >
-                  {project.description}
-                </Markdown>
+                <MarkdownWrapper content={project.description} />
               </div>
             </WorkGridItem>
           </Section>
