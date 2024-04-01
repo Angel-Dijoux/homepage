@@ -27,6 +27,7 @@ export default function Planet() {
 
   useEffect(() => {
     if (!canvasRef.current) return;
+    let phi = 0;
     let width = 0;
     const onResize = () =>
       canvasRef.current && (width = canvasRef.current.offsetWidth);
@@ -49,7 +50,10 @@ export default function Planet() {
       glowColor: [1.2, 1.2, 1.2],
       markers: MARKERS,
       onRender: (state) => {
-        state.phi = r.get();
+        if (!pointerInteracting.current) {
+          phi += 0.005;
+        }
+        state.phi = phi + r.get();
         state.width = width * 2;
         state.height = width * 2;
       },
@@ -59,7 +63,7 @@ export default function Planet() {
       globe.destroy();
       window.removeEventListener("resize", onResize);
     };
-  }, [theme]);
+  }, []);
 
   return (
     <div
@@ -75,7 +79,7 @@ export default function Planet() {
         ref={canvasRef}
         onPointerDown={(e) => {
           pointerInteracting.current =
-            e.clientX - (pointerInteractionMovement.current || 0);
+            e.clientX - pointerInteractionMovement.current;
           if (canvasRef.current) {
             canvasRef.current.style.cursor = "grabbing";
           }

@@ -1,27 +1,36 @@
-import { AnimatedLayout } from "@/components/layouts/AnimatedLayout";
 import Paragraph from "@/components/Paragraph";
 import { Section } from "@/components/Section";
-import { Button } from "@/components/ui/button";
+import { AnimatedLayout } from "@/components/layouts/AnimatedLayout";
 import { ButtonWithIcon } from "@/components/ui/ButtonWithIcon";
 import SectionTitle from "@/components/ui/SectionTitle";
 import Typography from "@/components/ui/Typography";
+import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
+  DoubleArrowRightIcon,
   GitHubLogoIcon,
   InstagramLogoIcon,
   LinkedInLogoIcon,
-  DoubleArrowRightIcon,
 } from "@radix-ui/react-icons";
-import Planet from "@/components/planet";
-import { createLazyFileRoute, Link } from "@tanstack/react-router";
+import { Link, createLazyFileRoute } from "@tanstack/react-router";
+import { Suspense, lazy } from "react";
 
 export const Route = createLazyFileRoute("/")({
   component: Home,
 });
 
+const LazyPLanet = lazy(() => import("../components/planet"));
+
 function Home() {
   return (
     <AnimatedLayout>
-      <Planet />
+      <Suspense
+        fallback={
+          <Skeleton className="w-full max-w-[600px] h-[600px] aspect-w-1 aspect-h-1 " />
+        }
+      >
+        <LazyPLanet />
+      </Suspense>
       <div className="relative rounded-lg mb-6 p-3 text-center backdrop-blur-lg bg-accent">
         <Typography variant="h3" affects="large">
           Hi, I'm an software engineer!

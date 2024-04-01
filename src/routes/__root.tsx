@@ -1,5 +1,5 @@
 import { Footer } from "@/components/layouts/Footer";
-import { NavBar } from "@/navigation/NavBar";
+import { Header } from "@/components/layouts/Header";
 import { createRootRoute, Outlet } from "@tanstack/react-router";
 import { Helmet } from "react-helmet";
 
@@ -23,7 +23,7 @@ export const Route = createRootRoute({
         <meta property="og:image" content="https://TODO" />
         <title>Angel Dijoux - Homepage</title>
       </Helmet>
-      <NavBar />
+      <Header />
       <div className="container max-w-2xl pt-24">
         <div className=" max-w-xl">
           <Outlet />

@@ -8,6 +8,8 @@ import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
 import { createLazyFileRoute } from "@tanstack/react-router";
+import { Skeleton } from "@/components/ui/skeleton";
+import { SkeletonImage } from "@/components/skeletons/SkeletonImage";
 
 export const Route = createLazyFileRoute("/works/")({
   component: Works,
@@ -33,8 +35,9 @@ const calculateDelay = (index: number, offset: number) => {
 };
 
 function Works() {
-  const { data: projects } = useSWR<Project[]>("/project");
+  const { data: projects, isLoading } = useSWR<Project[]>("/project");
 
+  if (isLoading) return <SkeletonCard length={4} />;
   return (
     <AnimatedLayout title="Works">
       <Typography variant="h3">Works</Typography>
@@ -94,3 +97,22 @@ function Works() {
     </AnimatedLayout>
   );
 }
+
+const SkeletonCard = ({ length }: { length: number }) => {
+  return (
+    <>
+      <Skeleton className="h-6 w-[150px]" />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+        {Array.from({ length }).map((_, index) => (
+          <div key={index} className="flex flex-col space-y-3">
+            <SkeletonImage />
+            <div className="space-y-2 ">
+              <Skeleton className="h-4 w-[250px]" />
+              <Skeleton className="h-4 w-[200px]" />
+            </div>
+          </div>
+        ))}
+      </div>
+    </>
+  );
+};

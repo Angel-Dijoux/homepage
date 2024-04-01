@@ -8,7 +8,7 @@ const SectionTitle = React.forwardRef<HTMLHeadingElement, TypographyProps>(
       <Typography
         ref={ref}
         className={cn(
-          "underline text-lg underline-offset-4 decoration-slate-800 decoration-4 mt-3 mb-4",
+          "underline text-lg underline-offset-4 decoration-muted-foreground decoration-4 mt-3 mb-4",
           cn(typographyVariants({ variant, affects, className }))
         )}
         {...props}

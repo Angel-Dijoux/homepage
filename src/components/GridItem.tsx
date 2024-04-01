@@ -23,12 +23,12 @@ export const WorkGridItem = ({
 }: Readonly<PropsWithChildren<WorkGridItemProps>>) => {
   return (
     <Link to="/works/$id" params={{ id: String(id) }}>
-      <div className="w-full text-center border bg-radial-highlight-light dark:bg-radial-highlight-dark rounded-2xl py-3 px-3">
+      <div className="w-full text-center border bg-radial-highlight-light dark:bg-radial-highlight-dark rounded-md py-2 px-2 ">
         <Suspense fallback={<SkeletonImage />}>
           <SuspenseImage
             src={thumbnail}
             alt={title}
-            className="rounded-xl border"
+            className="rounded-md border w-full h-full"
             loading="lazy"
             decoding="async"
           />
@@ -41,7 +41,7 @@ export const WorkGridItem = ({
             </div>
           </Button>
         </Link>
-        {children}
+        <div className="py-4">{children}</div>
       </div>
     </Link>
   );

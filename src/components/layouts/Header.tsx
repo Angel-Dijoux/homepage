@@ -3,7 +3,7 @@ import { useTheme } from "@/components/ThemeProvider";
 import { Switch } from "@/components/ui/switch";
 import { Link } from "@tanstack/react-router";
 
-export function NavBar() {
+export function Header() {
   const { setTheme, theme } = useTheme();
 
   return (
