@@ -47,7 +47,7 @@ function Home() {
         <div className="shrink-0 md:mt-0 mt-4 md:ml-6 text-center">
           <div className="border-gray-300 border-2 border-solid w-24 h-24 inline-block rounded-full overflow-hidden">
             <img
-              src="http://angel.dijoux.free.fr/images/profile_picture.jpg"
+              src="https://i.imgur.com/IvB1erq.jpg"
               alt="Jojo's Angel PP"
               height="100"
               width="100"
