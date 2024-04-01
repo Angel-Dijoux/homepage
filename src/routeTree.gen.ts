@@ -13,12 +13,12 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as WorksIdImport } from './routes/works/$id'
 
 // Create Virtual Routes
 
 const IndexLazyImport = createFileRoute('/')()
 const WorksIndexLazyImport = createFileRoute('/works/')()
-const WorksIdLazyImport = createFileRoute('/works/$id')()
 
 // Create/Update Routes
 
@@ -32,10 +32,10 @@ const WorksIndexLazyRoute = WorksIndexLazyImport.update({
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/works/index.lazy').then((d) => d.Route))
 
-const WorksIdLazyRoute = WorksIdLazyImport.update({
+const WorksIdRoute = WorksIdImport.update({
   path: '/works/$id',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/works/$id.lazy').then((d) => d.Route))
+} as any)
 
 // Populate the FileRoutesByPath interface
 
@@ -46,7 +46,7 @@ declare module '@tanstack/react-router' {
       parentRoute: typeof rootRoute
     }
     '/works/$id': {
-      preLoaderRoute: typeof WorksIdLazyImport
+      preLoaderRoute: typeof WorksIdImport
       parentRoute: typeof rootRoute
     }
     '/works/': {
@@ -60,7 +60,7 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren([
   IndexLazyRoute,
-  WorksIdLazyRoute,
+  WorksIdRoute,
   WorksIndexLazyRoute,
 ])
 

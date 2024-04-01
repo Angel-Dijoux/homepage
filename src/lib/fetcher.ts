@@ -6,7 +6,7 @@ const PROD_BASE_URL = "TODO : DEFINE";
 const DEV_BASE_URL = "http://192.168.1.21:8080/api";
 
 const BASE_URL =
-  process.env.NODE_ENV === "production" ? PROD_BASE_URL : DEV_BASE_URL;
+  process.env.NODE_ENV === "development" ? DEV_BASE_URL : PROD_BASE_URL;
 
 /**
  * Makes a network request using the Fetch API with specified options.

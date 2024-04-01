@@ -47,7 +47,7 @@ function Home() {
         <div className="shrink-0 md:mt-0 mt-4 md:ml-6 text-center">
           <div className="border-gray-300 border-2 border-solid w-24 h-24 inline-block rounded-full overflow-hidden">
             <img
-              src="http://angel.dijoux.free.fr/images/profile_picture.jpg"
+              src="https://i.imgur.com/IvB1erq.jpg"
               alt="Jojo's Angel PP"
               height="100"
               width="100"
@@ -77,11 +77,11 @@ function Home() {
         <SectionTitle variant="h3">Madly in Love with</SectionTitle>
         <Paragraph>
           Music, Quantum Computing,{" "}
-          <Link href="https://www.instagram.com/elki_8/" target="_blank">
+          <a href="https://www.instagram.com/elki_8/" target="_blank">
             <Button variant="link" className="p-0 m-0 text-base">
               Photography
             </Button>
-          </Link>
+          </a>
           , Videography, Urban Art, Linux
         </Paragraph>
       </Section>
@@ -89,15 +89,15 @@ function Home() {
       <Section delay={0.3}>
         <SectionTitle variant="h3">Arround the World Wide Web</SectionTitle>
         <div className="flex justify-center items-start flex-col gap-2 mt-2">
-          <Link href="https://github.com/Angel-Dijoux" target="_blank">
+          <a href="https://github.com/Angel-Dijoux" target="_blank">
             <ButtonWithIcon
               variant="ghost"
               IconLeft={<GitHubLogoIcon width={ICON_SIZE} height={ICON_SIZE} />}
             >
               @Angel-Dijoux
             </ButtonWithIcon>
-          </Link>
-          <Link href="https://www.instagram.com/elki_8/" target="_blank">
+          </a>
+          <a href="https://www.instagram.com/elki_8/" target="_blank">
             <ButtonWithIcon
               variant="ghost"
               IconLeft={
@@ -106,8 +106,8 @@ function Home() {
             >
               @elki_8
             </ButtonWithIcon>
-          </Link>
-          <Link
+          </a>
+          <a
             href="https://www.linkedin.com/in/angel-d-4091a3253/"
             target="_blank"
           >
@@ -119,7 +119,7 @@ function Home() {
             >
               @Angel-Dijoux
             </ButtonWithIcon>
-          </Link>
+          </a>
         </div>
       </Section>
     </AnimatedLayout>
