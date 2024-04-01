@@ -23,8 +23,9 @@ export type Project = {
   title: string;
   description: string;
   image_url: string;
-  url: string;
-  second_url?: string;
+  github_url: string;
+  project_url?: string;
+  file_uri?: string;
   is_sio: boolean;
   labels?: Label[];
 };

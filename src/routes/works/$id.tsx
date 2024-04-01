@@ -36,11 +36,11 @@ function WorkDetails() {
         return <Badge key={label.id}>{label.label}</Badge>;
       })}
       <div className="flex flex-row items-center gap-3 mt-4">
-        <a href={project?.url} target="_blank">
+        <a href={project?.github_url} target="_blank">
           <Button>Voir</Button>
         </a>
-        {project?.second_url ? (
-          <a href={project.second_url} target="_blank">
+        {project?.project_url ? (
+          <a href={project.project_url} target="_blank">
             <Button>View</Button>
           </a>
         ) : null}
