@@ -2,7 +2,7 @@ export type ArgProps<T> = {
   arg: T;
 };
 
-const PROD_BASE_URL = "TODO : DEFINE";
+const PROD_BASE_URL = "https://portefolio.dynv6.net/api";
 const DEV_BASE_URL = "http://192.168.1.21:8080/api";
 
 const BASE_URL =
