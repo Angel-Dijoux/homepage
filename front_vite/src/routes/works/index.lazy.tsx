@@ -15,7 +15,7 @@ export const Route = createLazyFileRoute("/works/")({
 
 type Label = {
   id: number;
-  label: string;
+  name: string;
 };
 
 export type Project = {

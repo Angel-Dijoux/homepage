@@ -3,7 +3,7 @@ export type ArgProps<T> = {
 };
 
 const PROD_BASE_URL = "https://portefolio.dynv6.net/api";
-const DEV_BASE_URL = "http://192.168.1.21:8080/api";
+const DEV_BASE_URL = "http://localhost:8080/api";
 
 const BASE_URL =
   process.env.NODE_ENV === "development" ? DEV_BASE_URL : PROD_BASE_URL;

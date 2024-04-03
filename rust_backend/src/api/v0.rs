@@ -1,13 +1,13 @@
 use axum::{extract::Path, http::StatusCode, routing::get, Json, Router};
+use diesel::RunQueryDsl;
+use portefolio_back::{
+    establish_connection,
+    models::{self, Label},
+    schema::{label, project_label},
+};
 use serde::Serialize;
 
-#[derive(Serialize, Clone)]
-struct Label {
-    id: u64,
-    label: String,
-}
-
-#[derive(Serialize, Default, Clone)]
+#[derive(Serialize, Default)]
 struct Project {
     id: u64,
     title: String,
@@ -17,30 +17,22 @@ struct Project {
     project_url: Option<String>,
     file_uri: Option<String>,
     is_sio: bool,
-    labels: Option<Vec<Label>>,
+    labels: Option<Vec<models::Label>>,
+}
+
+fn get_labels() -> Vec<Label> {
+    let conn = &mut establish_connection();
+
+    let result = project_label::table
+        .load::<models::ProjectLabel>(conn)
+        .expect("Error Loading pr label");
+
+    return label::table
+        .load::<models::Label>(conn)
+        .expect("Error Loading label");
 }
 
 async fn list_projects() -> Json<Vec<Project>> {
-    let website_site = Label {
-        id: 1,
-        label: "website".to_string(),
-    };
-
-    let open_source = Label {
-        id: 2,
-        label: "Open Source".to_string(),
-    };
-
-    let mobile_app = Label {
-        id: 3,
-        label: "Mobile App".to_string(),
-    };
-
-    let web_app = Label {
-        id: 4,
-        label: "Web App".to_string(),
-    };
-
     let projects = vec![
         Project {
             id: 1,
@@ -53,7 +45,7 @@ async fn list_projects() -> Json<Vec<Project>> {
             project_url: Option::None,
             file_uri: Option::None,
             is_sio: true,
-            labels: Some(vec![website_site, open_source]),
+            labels: Some(get_labels()),
         },
         Project {
             id: 2,
@@ -65,7 +57,7 @@ async fn list_projects() -> Json<Vec<Project>> {
             project_url: Some(String::from("https://tanstack.com/")),
             file_uri: Option::None,
             is_sio: false,
-            labels: Some(vec![web_app]),
+            labels: Some(get_labels()),
         },
         Project {
             id: 3,
@@ -76,7 +68,7 @@ async fn list_projects() -> Json<Vec<Project>> {
             project_url: Some(String::from("https://tanstack.com/")),
             file_uri: Some(String::from("https://tanstack.com/")),
             is_sio: false,
-            labels: Some(vec![mobile_app.clone()]),
+            labels: Some(get_labels()),
         },
         Project {
             id: 4,
@@ -87,7 +79,7 @@ async fn list_projects() -> Json<Vec<Project>> {
             project_url: Some(String::from("https://tanstack.com/")),
             file_uri: Some(String::from("https://tanstack.com/")),
             is_sio: false,
-            labels: Some(vec![mobile_app.clone()]),
+            labels: Some(get_labels()),
         },
     ];
     Json(projects)
