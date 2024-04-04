@@ -2,7 +2,7 @@
 
 diesel::table! {
     label (id) {
-        id -> Int8,
+        id -> Uuid,
         #[max_length = 255]
         name -> Varchar,
     }
@@ -10,7 +10,7 @@ diesel::table! {
 
 diesel::table! {
     project (id) {
-        id -> Int8,
+        id -> Uuid,
         #[max_length = 255]
         title -> Varchar,
         description -> Text,
@@ -28,8 +28,8 @@ diesel::table! {
 
 diesel::table! {
     project_label (project_id, label_id) {
-        project_id -> Int8,
-        label_id -> Int8,
+        project_id -> Uuid,
+        label_id -> Uuid,
     }
 }
 

@@ -10,7 +10,7 @@ axum = { version = "0.7", features = [ "http2", "json" ] }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0.68"
 tokio = { version = "1.0", features = ["full"] }
-diesel = { version = "2.1.0", features = ["postgres"] }
+diesel = { version = "2.1.0", features = ["postgres", "uuid"] }
 dotenvy = "0.15"
 anyhow             = { version = "1.0", features = [ "backtrace" ] }
 api-version        = { git = "https://github.com/scndcloud/api-version" }
@@ -23,3 +23,4 @@ tracing            = { version = "0.1", default-features = false }
 tracing-subscriber = { version = "0.3", default-features = false, features = [ "env-filter", "fmt", "json" ] }
 comrak = "0.22"
 regex = "1.10.4"
+uuid = { version = "1.4.1", features = ["v4", "serde"] }
