@@ -1,0 +1,26 @@
+[package]
+name = "portefolio_back"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+axum = { version = "0.7", features = [ "http2", "json" ] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0.68"
+tokio = { version = "1.0", features = ["full"] }
+diesel = { version = "2.1.0", features = ["postgres", "uuid"] }
+dotenvy = "0.15"
+anyhow             = { version = "1.0", features = [ "backtrace" ] }
+api-version        = { git = "https://github.com/scndcloud/api-version" }
+configured         = { version = "0.7" }
+humantime-serde    = { version = "1.1" }
+time               = { version = "0.3", features = [ "formatting" ] }
+tower              = { version = "0.4" }
+tower-http         = { version = "0.5", features = [ "trace", "cors" ] }
+tracing            = { version = "0.1", default-features = false }
+tracing-subscriber = { version = "0.3", default-features = false, features = [ "env-filter", "fmt", "json" ] }
+comrak = "0.22"
+regex = "1.10.4"
+uuid = { version = "1.4.1", features = ["v4", "serde"] }

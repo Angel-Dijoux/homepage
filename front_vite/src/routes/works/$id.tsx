@@ -20,8 +20,6 @@ function WorkDetails() {
   const { id } = Route.useParams();
   const { data: project, isLoading } = useSWR<Project>(`/project/${id}`);
 
-  console.log(project);
-
   if (isLoading) return <div>Loading...</div>;
   return (
     <AnimatedLayout title={project?.title}>
@@ -38,7 +36,7 @@ function WorkDetails() {
       </Suspense>
       <div className="flex  gap-2">
         {project?.labels?.map((label) => {
-          return <Badge key={label.id}>{label.label}</Badge>;
+          return <Badge key={label.id}>{label.name}</Badge>;
         })}
       </div>
       <div className="flex flex-row items-center gap-3 mt-4">

@@ -19,8 +19,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <SWRConfig
       value={{
-        refreshInterval: 3000,
         fetcher,
+        revalidateOnFocus: true,
+        revalidateOnReconnect: true,
       }}
     >
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
