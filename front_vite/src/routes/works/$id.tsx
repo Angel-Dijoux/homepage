@@ -53,8 +53,8 @@ function WorkDetails() {
           </a>
         ) : null}
       </div>
-      <div className="mt-4">
-        <MarkdownWrapper content={project?.description} />
+      <div className="mt-14">
+        <MarkdownWrapper content={project?.description} textOnly={false} />
       </div>
     </AnimatedLayout>
   );
