@@ -8,9 +8,6 @@ on:
 
 jobs:
   push_to_registry:
-    defaults:
-      run:
-        working-directory: rust_backend
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
     steps:
