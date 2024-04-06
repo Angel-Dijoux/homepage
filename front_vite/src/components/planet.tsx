@@ -46,7 +46,7 @@ export default function Planet() {
       scale: 0.95,
       opacity: 0.95,
       baseColor: [1, 1, 1],
-      markerColor: [251 / 255, 100 / 255, 21 / 255],
+      markerColor: [0.086, 0.639, 0.29],
       glowColor: [1.2, 1.2, 1.2],
       markers: MARKERS,
       onRender: (state) => {
