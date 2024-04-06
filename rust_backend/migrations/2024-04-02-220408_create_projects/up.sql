@@ -4,6 +4,7 @@ CREATE TABLE project (
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
+    shorten_description VARCHAR(255) NOT NULL,
     image_url VARCHAR(255) NOT NULL,
     github_url VARCHAR(255) NOT NULL,
     project_url VARCHAR(255),

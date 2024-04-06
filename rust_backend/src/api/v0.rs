@@ -8,9 +8,10 @@ use portefolio_back::{
 use serde_json::json;
 use uuid::Uuid;
 
-async fn get_all_projects() -> Json<Vec<Project>> {
+async fn get_all_projects(Path(is_sio): Path<bool>) -> Json<Vec<Project>> {
     let conn = &mut establish_connection();
     let projects = project::table
+        .filter(project::is_sio.eq(is_sio))
         .load::<models::Project>(conn)
         .expect("Error loadin projects");
     Json(projects)
@@ -59,6 +60,6 @@ async fn find_project_by_id(
 
 pub fn app() -> Router {
     return Router::new()
-        .route("/project", get(get_all_projects))
+        .route("/projects/:is_sio", get(get_all_projects))
         .route("/project/:id", get(find_project_by_id));
 }

@@ -15,6 +15,8 @@ diesel::table! {
         title -> Varchar,
         description -> Text,
         #[max_length = 255]
+        shorten_description -> Varchar,
+        #[max_length = 255]
         image_url -> Varchar,
         #[max_length = 255]
         github_url -> Varchar,

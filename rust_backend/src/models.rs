@@ -16,6 +16,7 @@ pub struct Project {
     pub id: uuid::Uuid,
     pub title: String,
     pub description: String,
+    pub shorten_description: String,
     pub image_url: String,
     pub github_url: String,
     pub project_url: Option<String>,

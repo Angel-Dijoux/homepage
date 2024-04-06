@@ -22,6 +22,7 @@ export type Project = {
   id: number;
   title: string;
   description: string;
+  shorten_description: string;
   image_url: string;
   github_url: string;
   project_url?: string;
@@ -35,7 +36,9 @@ const calculateDelay = (index: number, offset: number) => {
 };
 
 function Works() {
-  const { data: projects, isLoading } = useSWR<Project[]>("/project");
+  const { data: projects, isLoading } = useSWR<Project[]>("/projects/true");
+
+  console.log(projects);
 
   if (isLoading) return <SkeletonCard length={4} />;
   return (
@@ -54,7 +57,7 @@ function Works() {
               thumbnail={project.image_url}
             >
               <div className="mt-4">
-                <MarkdownWrapper content={project.description} />
+                <MarkdownWrapper content={project.shorten_description} />
               </div>
             </WorkGridItem>
           </Section>
@@ -78,7 +81,10 @@ function Works() {
               thumbnail={project.image_url}
             >
               <div className="mt-4">
-                <MarkdownWrapper content={project.description} />
+                <MarkdownWrapper
+                  content={project.shorten_description}
+                  textOnly
+                />
               </div>
             </WorkGridItem>
           </Section>
