@@ -38,8 +38,6 @@ const calculateDelay = (index: number, offset: number) => {
 function Works() {
   const { data: projects, isLoading } = useSWR<Project[]>("/projects/true");
 
-  console.log(projects);
-
   if (isLoading) return <SkeletonCard length={4} />;
   return (
     <AnimatedLayout title="Works">

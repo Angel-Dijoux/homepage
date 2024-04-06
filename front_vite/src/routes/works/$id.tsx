@@ -10,7 +10,7 @@ import { Suspense } from "react";
 import useSWR from "swr";
 import { Project } from "./index.lazy";
 import { ButtonWithIcon } from "@/components/ui/ButtonWithIcon";
-import { GitHubLogoIcon } from "@radix-ui/react-icons";
+import { FileIcon, GitHubLogoIcon } from "@radix-ui/react-icons";
 
 export const Route = createFileRoute("/works/$id")({
   component: WorkDetails,
@@ -27,16 +27,18 @@ function WorkDetails() {
         <MarkdownWrapper content={project?.title} textOnly={false} />
       </Typography>
       <Suspense fallback={<SkeletonImage />}>
-        {project?.image_url ? (
-          <SuspenseImage
-            src={project.image_url}
-            className="rounded-md border mb-4"
-          />
-        ) : null}
+        <SuspenseImage
+          src={project?.image_url}
+          className="rounded-md border mb-4"
+        />
       </Suspense>
       <div className="flex  gap-2">
         {project?.labels?.map((label) => {
-          return <Badge key={label.id}>{label.name}</Badge>;
+          return (
+            <Badge key={label.id} variant="secondary">
+              {label.name}
+            </Badge>
+          );
         })}
       </div>
       <div className="flex flex-row items-center gap-3 mt-4">
@@ -47,9 +49,18 @@ function WorkDetails() {
             View on GitHub
           </ButtonWithIcon>
         </a>
+        {project?.file_uri ? (
+          <a href={project.project_url} target="_blank">
+            <ButtonWithIcon
+              IconLeft={<FileIcon width={ICON_SIZE} height={ICON_SIZE} />}
+            >
+              File
+            </ButtonWithIcon>
+          </a>
+        ) : null}
         {project?.project_url ? (
           <a href={project.project_url} target="_blank">
-            <Button>View project</Button>
+            <Button>Visite</Button>
           </a>
         ) : null}
       </div>
