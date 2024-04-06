@@ -3,11 +3,13 @@ ARG RUST_VERSION=1.75.0
 FROM rust:${RUST_VERSION}-slim-bookworm AS builder
 WORKDIR /app
 COPY . .
+RUN apt-get update && apt-get install -y libpq-dev \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 RUN \
     --mount=type=cache,target=/app/target/ \
     --mount=type=cache,target=/usr/local/cargo/registry/ \
     cargo build --release && \
-    cp ./target/release/portefolio_back /
+    cp ./target/release/rust_backend /
 
 FROM debian:bookworm-slim AS final
 RUN adduser \
@@ -18,12 +20,12 @@ RUN adduser \
     --no-create-home \
     --uid "10001" \
     appuser
-COPY --from=builder /portefolio_back /usr/local/bin
-RUN chown appuser /usr/local/bin/portefolio_back
-COPY --from=builder /app/config /opt/portefolio_back/config
-RUN chown -R appuser /opt/portefolio_back
+COPY --from=builder /rust_backend /usr/local/bin
+RUN chown appuser /usr/local/bin/rust_backend
+COPY --from=builder /app/config /opt/rust_backend/config
+RUN chown -R appuser /opt/rust_backend
 USER appuser
-ENV RUST_LOG="hello_rs=debug,info"
-WORKDIR /opt/portefolio_back
-ENTRYPOINT ["portefolio_back"]
+ENV RUST_LOG="rust_backend=debug,info"
+WORKDIR /opt/rust_backend
+ENTRYPOINT ["rust_backend"]
 EXPOSE 3200/tcp

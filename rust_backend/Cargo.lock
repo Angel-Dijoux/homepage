@@ -1254,30 +1254,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "portefolio_back"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "api-version",
- "axum",
- "comrak",
- "configured",
- "diesel",
- "dotenvy",
- "humantime-serde",
- "regex",
- "serde",
- "serde_json",
- "time",
- "tokio",
- "tower",
- "tower-http",
- "tracing",
- "tracing-subscriber",
- "uuid",
-]
-
-[[package]]
 name = "powerfmt"
 version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1391,6 +1367,30 @@ checksum = "f6d5f2436026b4f6e79dc829837d467cc7e9a55ee40e750d716713540715a2df"
 dependencies = [
  "cfg-if",
  "ordered-multimap",
+]
+
+[[package]]
+name = "rust_backend"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "api-version",
+ "axum",
+ "comrak",
+ "configured",
+ "diesel",
+ "dotenvy",
+ "humantime-serde",
+ "regex",
+ "serde",
+ "serde_json",
+ "time",
+ "tokio",
+ "tower",
+ "tower-http",
+ "tracing",
+ "tracing-subscriber",
+ "uuid",
 ]
 
 [[package]]

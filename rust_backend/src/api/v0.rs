@@ -1,6 +1,6 @@
 use axum::{extract::Path, http::StatusCode, routing::get, Json, Router};
 use diesel::{ExpressionMethods, QueryDsl, RunQueryDsl};
-use portefolio_back::{
+use rust_backend::{
     establish_connection,
     models::{self, Label, Project, ProjectWithLabels},
     schema::{label, project, project_label},
