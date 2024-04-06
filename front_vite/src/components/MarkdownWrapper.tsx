@@ -1,4 +1,4 @@
-import Markdown from "react-markdown";
+import Markdown, { Options } from "react-markdown";
 import rehypeHighlight from "rehype-highlight";
 import remarkGfm from "remark-gfm";
 import remarkMermaid from "remark-mermaidjs";
@@ -8,14 +8,16 @@ import { TypographyH1 } from "./md-components/typography-1";
 import { TypographyH2 } from "./md-components/typography-2";
 import { TypographyH3 } from "./md-components/typography-3";
 import { TypographyH4 } from "./md-components/typography-4";
+import { TypographyP } from "./md-components/typography-p";
 import { TypographyBlockquote } from "./ui/TypographyBlockquote";
 
 type MarkdownWrapperProps = {
   content?: string;
   textOnly?: boolean;
-};
+} & Options;
 
 export function MarkdownWrapper({
+  className,
   content,
   textOnly = true,
 }: Readonly<MarkdownWrapperProps>) {
@@ -29,13 +31,14 @@ export function MarkdownWrapper({
           textOnly ? textOnlyRemarks : [...textOnlyRemarks, [remarkMermaid]]
         }
         rehypePlugins={[rehypeHighlight]}
-        className="whitespace-pre-line"
+        className={className}
         components={{
           code: CodeMdBlock,
           h1: TypographyH1,
           h2: TypographyH2,
           h3: TypographyH3,
           h4: TypographyH4,
+          p: TypographyP,
           a: LinkWithButton,
           blockquote: TypographyBlockquote,
         }}

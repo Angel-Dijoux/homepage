@@ -37,7 +37,10 @@ export const WorkGridItem = ({
         <Link to="/works/$id" params={{ id: String(id) }}>
           <Button variant="link" className="p-0 m-0 text-base mt-4">
             <div className="mt-2 text-lg">
-              <MarkdownWrapper content={title} />
+              <MarkdownWrapper
+                content={title}
+                className="whitespace-pre-line"
+              />
             </div>
           </Button>
         </Link>

@@ -55,7 +55,10 @@ function Works() {
               thumbnail={project.image_url}
             >
               <div className="mt-4">
-                <MarkdownWrapper content={project.shorten_description} />
+                <MarkdownWrapper
+                  content={project.shorten_description}
+                  className="whitespace-pre-line"
+                />
               </div>
             </WorkGridItem>
           </Section>
@@ -81,7 +84,7 @@ function Works() {
               <div className="mt-4">
                 <MarkdownWrapper
                   content={project.shorten_description}
-                  textOnly
+                  className="whitespace-pre-line"
                 />
               </div>
             </WorkGridItem>
