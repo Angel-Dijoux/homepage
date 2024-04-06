@@ -12,6 +12,8 @@ RUN \
     cp ./target/release/rust_backend /
 
 FROM debian:bookworm-slim AS final
+RUN apt-get update && apt-get install -y libpq-dev \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 RUN adduser \
     --disabled-password \
     --gecos "" \
