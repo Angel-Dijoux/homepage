@@ -50,7 +50,7 @@ function WorkDetails() {
           </ButtonWithIcon>
         </a>
         {project?.file_uri ? (
-          <a href={project.project_url} target="_blank">
+          <a href={project.file_uri} target="_blank">
             <ButtonWithIcon
               IconLeft={<FileIcon width={ICON_SIZE} height={ICON_SIZE} />}
             >
