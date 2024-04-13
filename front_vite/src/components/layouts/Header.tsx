@@ -1,7 +1,8 @@
 import { Logo } from "@/components/Logo";
 import { useTheme } from "@/components/ThemeProvider";
-import { Switch } from "@/components/ui/switch";
+import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
 import { Link } from "@tanstack/react-router";
+import { Button } from "../ui/button";
 
 export function Header() {
   const { setTheme, theme } = useTheme();
@@ -18,9 +19,17 @@ export function Header() {
             Works
           </Link>
         </div>
-        <Switch
-          onCheckedChange={() => setTheme(theme == "light" ? "dark" : "light")}
-        />
+        <Button
+          variant="outline"
+          className="h-8 p-2 px-2"
+          onClick={() => setTheme(theme == "light" ? "dark" : "light")}
+        >
+          {theme == "light" ? (
+            <SunIcon className="h-4 w-4" />
+          ) : (
+            <MoonIcon className="h-4 w-4" />
+          )}
+        </Button>
       </div>
     </div>
   );
