@@ -22,16 +22,18 @@ function WorkDetails() {
 
   if (isLoading) return <div>Loading...</div>;
   return (
-    <AnimatedLayout title={project?.title}>
+    <AnimatedLayout title={project?.title} imgSrc={project?.image_url}>
       <Typography variant="h3" className="my-4">
-        <MarkdownWrapper content={project?.title} textOnly={false} />
+        {project?.title}
       </Typography>
-      <Suspense fallback={<SkeletonImage />}>
-        <SuspenseImage
-          src={project?.image_url}
-          className="rounded-md border mb-4"
-        />
-      </Suspense>
+      <div className="h-72 w-full mb-4">
+        <Suspense fallback={<SkeletonImage />}>
+          <SuspenseImage
+            src={project?.image_url}
+            className="rounded-md border object-cover h-full w-full"
+          />
+        </Suspense>
+      </div>
       <div className="flex  gap-2">
         {project?.labels?.map((label) => {
           return (

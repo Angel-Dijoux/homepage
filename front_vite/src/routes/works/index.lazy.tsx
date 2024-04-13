@@ -19,7 +19,7 @@ type Label = {
 };
 
 export type Project = {
-  id: number;
+  id: string;
   title: string;
   description: string;
   shorten_description: string;

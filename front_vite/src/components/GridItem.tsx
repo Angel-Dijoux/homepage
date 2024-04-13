@@ -12,7 +12,7 @@ type GridItemProps = {
 };
 
 type WorkGridItemProps = {
-  id: number;
+  id: string;
 } & Omit<GridItemProps, "href">;
 
 export const WorkGridItem = ({
@@ -22,19 +22,21 @@ export const WorkGridItem = ({
   thumbnail,
 }: Readonly<PropsWithChildren<WorkGridItemProps>>) => {
   return (
-    <Link to="/works/$id" params={{ id: String(id) }}>
+    <Link to="/works/$id" params={{ id: id }}>
       <div className="w-full min-h-80 text-center border bg-radial-highlight-light dark:bg-radial-highlight-dark rounded-md py-2 px-2">
-        <Suspense fallback={<SkeletonImage />}>
-          <SuspenseImage
-            src={thumbnail}
-            alt={title}
-            className="rounded-md border w-full h-full"
-            loading="lazy"
-            decoding="async"
-          />
-        </Suspense>
+        <div className="h-36 w-full">
+          <Suspense fallback={<SkeletonImage />}>
+            <SuspenseImage
+              src={thumbnail}
+              alt={title}
+              className="rounded-md border object-cover w-full h-full"
+              loading="lazy"
+              decoding="async"
+            />
+          </Suspense>
+        </div>
 
-        <Link to="/works/$id" params={{ id: String(id) }}>
+        <Link to="/works/$id" params={{ id: id }}>
           <Button variant="link" className="p-0 m-0 text-base mt-4">
             <div className="mt-2 text-lg">
               <MarkdownWrapper

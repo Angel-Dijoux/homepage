@@ -60,16 +60,12 @@
     @apply bg-background text-foreground;
   }
 
-  .table-container {
+  .md-container {
     margin: 0 auto;
   }
 
-  .table-container ul {
+  .md-container ul {
     @apply list-disc my-6 ml-6 [&>li]:mt-2
-  }
-
-  .table-container img {
-    @apply rounded-md border w-8/12 h-full ml-4
   }
 
   table tbody tr td img {
