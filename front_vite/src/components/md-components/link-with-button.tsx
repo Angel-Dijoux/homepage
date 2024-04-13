@@ -15,8 +15,11 @@ export const LinkWithButton = ({
     const match = imageBadgeRegex.exec(href);
     if (!match) {
       return (
-        <a href={href}>
-          <Button variant="link" className="p-0 m-0 text-base">
+        <a href={href} target="_blank">
+          <Button
+            variant="link"
+            className="p-0 m-0 text-base whitespace-pre-line text-start"
+          >
             {children}
           </Button>
         </a>
