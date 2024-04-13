@@ -10,6 +10,7 @@ import { TypographyH3 } from "./md-components/typography-3";
 import { TypographyH4 } from "./md-components/typography-4";
 import { TypographyP } from "./md-components/typography-p";
 import { TypographyBlockquote } from "./ui/TypographyBlockquote";
+import { ImgMdWithTransitions } from "./md-components/img-md-with-transitions";
 
 type MarkdownWrapperProps = {
   content?: string;
@@ -24,7 +25,7 @@ export function MarkdownWrapper({
   const textOnlyRemarks = [remarkGfm];
 
   return (
-    <div className="table-container">
+    <div className="md-container">
       <Markdown
         // @ts-expect-error Type not supported yet.
         remarkPlugins={
@@ -41,6 +42,7 @@ export function MarkdownWrapper({
           p: TypographyP,
           a: LinkWithButton,
           blockquote: TypographyBlockquote,
+          img: ImgMdWithTransitions,
         }}
       >
         {content}
