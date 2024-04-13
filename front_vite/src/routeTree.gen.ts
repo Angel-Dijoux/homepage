@@ -19,6 +19,7 @@ import { Route as WorksIdImport } from './routes/works/$id'
 
 const IndexLazyImport = createFileRoute('/')()
 const WorksIndexLazyImport = createFileRoute('/works/')()
+const QuantumIndexLazyImport = createFileRoute('/quantum/')()
 
 // Create/Update Routes
 
@@ -31,6 +32,11 @@ const WorksIndexLazyRoute = WorksIndexLazyImport.update({
   path: '/works/',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/works/index.lazy').then((d) => d.Route))
+
+const QuantumIndexLazyRoute = QuantumIndexLazyImport.update({
+  path: '/quantum/',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/quantum/index.lazy').then((d) => d.Route))
 
 const WorksIdRoute = WorksIdImport.update({
   path: '/works/$id',
@@ -49,6 +55,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WorksIdImport
       parentRoute: typeof rootRoute
     }
+    '/quantum/': {
+      preLoaderRoute: typeof QuantumIndexLazyImport
+      parentRoute: typeof rootRoute
+    }
     '/works/': {
       preLoaderRoute: typeof WorksIndexLazyImport
       parentRoute: typeof rootRoute
@@ -61,6 +71,7 @@ declare module '@tanstack/react-router' {
 export const routeTree = rootRoute.addChildren([
   IndexLazyRoute,
   WorksIdRoute,
+  QuantumIndexLazyRoute,
   WorksIndexLazyRoute,
 ])
 
