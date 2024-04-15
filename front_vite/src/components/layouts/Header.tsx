@@ -18,6 +18,9 @@ export function Header() {
           <Link to="/works" className="block p-2 [&.active]:font-bold">
             Works
           </Link>
+          <Link to="/quantum" className="block p-2 [&.active]:font-bold">
+            Quantum
+          </Link>
         </div>
         <Button
           variant="outline"

@@ -76,7 +76,13 @@ function Home() {
       <Section delay={0.2}>
         <SectionTitle variant="h3">Madly in Love with</SectionTitle>
         <Paragraph>
-          Music, Quantum Computing,{" "}
+          Music,{" "}
+          <Link to="/quantum">
+            <Button variant="link" className="p-0 m-0 text-base">
+              Quantum Computing
+            </Button>
+          </Link>
+          ,{" "}
           <a href="https://www.instagram.com/elki_8/" target="_blank">
             <Button variant="link" className="p-0 m-0 text-base">
               Photography
