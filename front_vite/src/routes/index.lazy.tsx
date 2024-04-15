@@ -79,10 +79,10 @@ function Home() {
           Music,{" "}
           <Link to="/quantum">
             <Button variant="link" className="p-0 m-0 text-base">
-              Quantum
+              Quantum Computing
             </Button>
           </Link>
-          , Computing,{" "}
+          ,{" "}
           <a href="https://www.instagram.com/elki_8/" target="_blank">
             <Button variant="link" className="p-0 m-0 text-base">
               Photography
