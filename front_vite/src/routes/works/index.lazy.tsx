@@ -37,8 +37,11 @@ const calculateDelay = (index: number, offset: number) => {
 
 function Works() {
   const { data: projects, isLoading } = useSWR<Project[]>("/projects/true");
+  const { data: persoProjects, isLoading: persoIsLoading } = useSWR<Project[]>(
+    !isLoading ? "/projects/false" : null
+  );
 
-  if (isLoading) return <SkeletonCard length={4} />;
+  if (isLoading || persoIsLoading) return <SkeletonCard length={4} />;
   return (
     <AnimatedLayout title="Works">
       <Typography variant="h3">Works</Typography>
@@ -70,7 +73,7 @@ function Works() {
         <Typography variant="h3">Personal projects</Typography>
       </Section>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
-        {projects?.map((project, index) => (
+        {persoProjects?.map((project, index) => (
           <Section
             delay={calculateDelay(index, 0.2)}
             key={project.id}
