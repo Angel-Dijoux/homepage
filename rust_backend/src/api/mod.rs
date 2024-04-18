@@ -1,3 +1,4 @@
+mod project;
 mod v0;
 
 use anyhow::{Context, Result};

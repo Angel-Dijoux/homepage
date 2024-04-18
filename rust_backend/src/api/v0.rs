@@ -1,18 +1,23 @@
 use axum::{extract::Path, http::StatusCode, routing::get, Json, Router};
-use diesel::{ExpressionMethods, QueryDsl, RunQueryDsl};
+use diesel::{ExpressionMethods, PgConnection, QueryDsl, RunQueryDsl};
 use rust_backend::{
     establish_connection,
-    models::{self, Label, Project, ProjectWithLabels},
-    schema::{label, project, project_label},
+    old_models::{self, Label, ProjectWithLabels},
+    schema::{label, project_label},
 };
 use serde_json::json;
 use uuid::Uuid;
 
-async fn get_all_projects(Path(is_sio): Path<bool>) -> Json<Vec<Project>> {
+use crate::{
+    infra::{db::schema::project, repositories::project_repository::ProjectDb},
+    models::project::Project,
+};
+
+async fn get_all_projects(Path(is_sio): Path<bool>) -> Json<Vec<ProjectDb>> {
     let conn = &mut establish_connection();
     let projects = project::table
         .filter(project::is_sio.eq(is_sio))
-        .load::<models::Project>(conn)
+        .load::<ProjectDb>(conn)
         .expect("Error loadin projects");
     Json(projects)
 }

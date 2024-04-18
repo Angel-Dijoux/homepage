@@ -9,6 +9,11 @@ use time::{format_description::well_known::Rfc3339, OffsetDateTime};
 use tracing::{error, info};
 use tracing_subscriber::{fmt, layer::SubscriberExt, util::SubscriberInitExt, EnvFilter};
 
+mod infra;
+mod models;
+mod old_models;
+mod schema;
+
 #[tokio::main]
 async fn main() {
     // If tracing initialization fails, nevertheless emit a structured log event.
