@@ -6,6 +6,7 @@ use diesel::{
 };
 use serde::Serialize;
 use serde_json::json;
+use ts_rs::TS;
 use uuid::Uuid;
 
 use crate::infra::errors::InfraError;
@@ -24,11 +25,12 @@ pub struct ProjectLabel {
     pub label_id: uuid::Uuid,
 }
 
-#[derive(Serialize)]
+#[derive(Serialize, TS)]
+#[ts(export)]
 pub struct ProjectWithLabels {
     #[serde(flatten)]
     pub project: Project,
-    pub labels: Vec<Label>,
+    pub labels: Option<Vec<Label>>,
 }
 
 #[derive(Debug)]

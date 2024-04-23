@@ -67,7 +67,10 @@ pub async fn get(
         .map_err(adapt_infra_error)?
         .map_err(adapt_infra_error)?;
 
-    let res = ProjectWithLabels { project, labels };
+    let res = ProjectWithLabels {
+        project,
+        labels: Some(labels),
+    };
 
     Ok(res)
 }
