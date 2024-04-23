@@ -1,3 +1,4 @@
+mod project;
 mod v0;
 
 use anyhow::{Context, Result};
@@ -7,9 +8,8 @@ use axum::{
     http::{Method, Request},
     Router, ServiceExt,
 };
-use serde::Deserialize;
 use serde_json::json;
-use std::{collections::HashMap, net::IpAddr, time::Duration};
+use std::{collections::HashMap, time::Duration};
 use time::{format_description::well_known::Rfc3339, OffsetDateTime};
 use tokio::{
     net::TcpListener,
@@ -20,38 +20,32 @@ use tower::Layer;
 use tower_http::{cors::CorsLayer, trace::TraceLayer};
 use tracing::{info_span, Span};
 
+use crate::{config::ServerConfig, AppState};
+
 use self::v0::app;
 
-#[derive(Debug, Deserialize)]
-#[serde(rename_all = "kebab-case")]
-pub struct Config {
-    addr: IpAddr,
-    port: u16,
-    #[serde(with = "humantime_serde")]
-    shutdown_timeout: Option<Duration>,
-}
-
-pub async fn serve(config: Config) -> Result<()> {
+pub async fn serve(config: ServerConfig, state: AppState) -> Result<()> {
     let origins = [
         "http://localhost:5173".parse().unwrap(),       // Dev mode
         "http://localhost:4173".parse().unwrap(),       // Preview mode
         "http://angel.dijoux.free.fr".parse().unwrap(), // Prod mode
     ];
 
-    let Config {
+    let ServerConfig {
         addr,
         port,
         shutdown_timeout,
     } = config;
 
-    let app = Router::new()
-        .nest("/v0/api/", app())
+    let app: Router = Router::new()
+        .nest("/v0/api/", app(state.clone()))
         .layer(
             CorsLayer::new()
                 .allow_origin(origins)
                 .allow_methods([Method::GET]),
         )
-        .layer(TraceLayer::new_for_http().make_span_with(make_span));
+        .layer(TraceLayer::new_for_http().make_span_with(make_span))
+        .with_state(state);
 
     let app = api_version!(0..=0).layer(app);
 
