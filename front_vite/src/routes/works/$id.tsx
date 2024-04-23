@@ -8,9 +8,9 @@ import { SuspenseImage } from "@/lib/SuspenseImage/SuspenseImage";
 import { createFileRoute } from "@tanstack/react-router";
 import { Suspense } from "react";
 import useSWR from "swr";
-import { Project } from "./index.lazy";
 import { ButtonWithIcon } from "@/components/ui/ButtonWithIcon";
 import { FileIcon, GitHubLogoIcon } from "@radix-ui/react-icons";
+import { ProjectWithLabels } from "@/bindings/ProjectWithLabels";
 
 export const Route = createFileRoute("/works/$id")({
   component: WorkDetails,
@@ -18,7 +18,9 @@ export const Route = createFileRoute("/works/$id")({
 
 function WorkDetails() {
   const { id } = Route.useParams();
-  const { data: project, isLoading } = useSWR<Project>(`/project/${id}`);
+  const { data: project, isLoading } = useSWR<ProjectWithLabels>(
+    `/project/${id}`
+  );
 
   if (isLoading) return <div>Loading...</div>;
   return (

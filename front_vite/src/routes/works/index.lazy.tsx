@@ -1,3 +1,4 @@
+import { ListProjectResponse } from "@/bindings/ListProjectResponse";
 import { Divider } from "@/components/Divider";
 import { WorkGridItem } from "@/components/GridItem";
 import { MarkdownWrapper } from "@/components/MarkdownWrapper";
@@ -13,40 +14,22 @@ export const Route = createLazyFileRoute("/works/")({
   component: Works,
 });
 
-type Label = {
-  id: number;
-  name: string;
-};
-
-export type Project = {
-  id: string;
-  title: string;
-  description: string;
-  shorten_description: string;
-  image_url: string;
-  github_url: string;
-  project_url?: string;
-  file_uri?: string;
-  is_sio: boolean;
-  labels?: Label[];
-};
-
 const calculateDelay = (index: number, offset: number) => {
   return (offset + index * 0.55 * 0.1) % 0.3;
 };
 
 function Works() {
-  const { data: projects, isLoading } = useSWR<Project[]>("/projects/true");
-  const { data: persoProjects, isLoading: persoIsLoading } = useSWR<Project[]>(
-    !isLoading ? "/projects/false" : null
-  );
+  const { data: projects, isLoading } =
+    useSWR<ListProjectResponse>("/projects/true");
+  const { data: persoProjects, isLoading: persoIsLoading } =
+    useSWR<ListProjectResponse>(!isLoading ? "/projects/false" : null);
 
   if (isLoading || persoIsLoading) return <SkeletonCard length={4} />;
   return (
     <AnimatedLayout title="Works">
       <Typography variant="h3">Works</Typography>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
-        {projects?.map((project, index) => (
+        {projects?.projects?.map((project, index) => (
           <Section
             delay={calculateDelay(index, 0)}
             key={project.id}
@@ -73,7 +56,7 @@ function Works() {
         <Typography variant="h3">Personal projects</Typography>
       </Section>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
-        {persoProjects?.map((project, index) => (
+        {persoProjects?.projects?.map((project, index) => (
           <Section
             delay={calculateDelay(index, 0.2)}
             key={project.id}
