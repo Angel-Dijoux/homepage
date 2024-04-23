@@ -1,42 +1,32 @@
 use axum::{http::StatusCode, response::IntoResponse, Json};
-use diesel::{deserialize::Queryable, Selectable};
+use diesel::{associations::Identifiable, deserialize::Queryable, Selectable};
 use serde::{Deserialize, Serialize};
 use serde_json::json;
-use ts_rs::TS;
 use uuid::Uuid;
 
 use crate::infra::errors::InfraError;
 
-#[derive(Serialize, Deserialize, Queryable, Selectable, Debug, PartialEq, Clone)]
-#[diesel(table_name = crate::infra::db::schema::project)]
+#[derive(Serialize, Deserialize, Queryable, Selectable, Debug, PartialEq, Clone, Identifiable)]
+#[diesel(table_name= crate::infra::db::schema::label)]
 #[diesel(check_for_backend(diesel::pg::Pg))]
-#[derive(TS)]
-#[ts(export)]
-pub struct Project {
+pub struct Label {
     pub id: uuid::Uuid,
-    pub title: String,
-    pub description: String,
-    pub shorten_description: String,
-    pub image_url: String,
-    pub github_url: String,
-    pub project_url: Option<String>,
-    pub file_uri: Option<String>,
-    pub is_sio: bool,
+    pub name: String,
 }
 
 #[derive(Debug)]
-pub enum ProjectError {
+pub enum LabelError {
     InternalServerError,
     NotFound(Uuid),
     InfraError(InfraError),
 }
 
-impl IntoResponse for ProjectError {
+impl IntoResponse for LabelError {
     fn into_response(self) -> axum::response::Response {
         let (status, err_msg) = match self {
             Self::NotFound(id) => (
                 StatusCode::NOT_FOUND,
-                format!("ProjectModel with id {} has not been found", id),
+                format!("LabelModel with id {} has not been found", id),
             ),
             Self::InfraError(db_error) => (
                 StatusCode::INTERNAL_SERVER_ERROR,
@@ -50,7 +40,7 @@ impl IntoResponse for ProjectError {
         (
             status,
             Json(
-                json!({"resource": "ProjectModel", "message": err_msg, "happened_at": chrono::Utc::now()})
+                json!({"resource": "LabelModel", "message": err_msg, "happened_at": chrono::Utc::now()})
             )
         ).into_response()
     }

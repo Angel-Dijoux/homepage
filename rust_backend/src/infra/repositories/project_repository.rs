@@ -1,13 +1,15 @@
-use diesel::{ExpressionMethods, QueryDsl, RunQueryDsl, SelectableHelper};
+use diesel::{ExpressionMethods, JoinOnDsl, QueryDsl, RunQueryDsl, SelectableHelper};
 use serde::Deserialize;
 use uuid::Uuid;
 
 use crate::{
     infra::errors::{adapt_infra_error, InfraError},
-    models::project::Project,
+    models::{label::Label, project::Project, project_label::ProjectWithLabels},
 };
 
+use crate::infra::db::schema::label;
 use crate::infra::db::schema::project;
+use crate::infra::db::schema::project_label;
 
 #[derive(Deserialize)]
 pub struct ProjectFilter {
@@ -37,19 +39,35 @@ pub async fn get_all(
     Ok(res)
 }
 
-pub async fn get(pool: &deadpool_diesel::postgres::Pool, id: Uuid) -> Result<Project, InfraError> {
+pub async fn get(
+    pool: &deadpool_diesel::postgres::Pool,
+    id: Uuid,
+) -> Result<ProjectWithLabels, InfraError> {
     let conn = pool.get().await.map_err(adapt_infra_error)?;
 
-    let res = conn
+    let project = conn
         .interact(move |conn| {
             project::table
                 .filter(project::id.eq(id))
-                .select(Project::as_select())
-                .get_result(conn)
+                .first::<Project>(conn)
         })
         .await
         .map_err(adapt_infra_error)?
         .map_err(adapt_infra_error)?;
+
+    let labels = conn
+        .interact(move |conn| {
+            project_label::table
+                .inner_join(label::table.on(project_label::label_id.eq(label::id)))
+                .filter(project_label::project_id.eq(id))
+                .select(Label::as_select())
+                .load::<Label>(conn)
+        })
+        .await
+        .map_err(adapt_infra_error)?
+        .map_err(adapt_infra_error)?;
+
+    let res = ProjectWithLabels { project, labels };
 
     Ok(res)
 }
