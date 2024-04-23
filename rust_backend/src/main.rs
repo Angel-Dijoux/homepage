@@ -1,18 +1,23 @@
 mod api;
 
 use anyhow::{Context, Result};
-use configured::Configured;
-use serde::Deserialize;
+use deadpool_diesel::postgres::{Manager, Pool};
 use serde_json::json;
 use std::{fmt::Display, panic};
 use time::{format_description::well_known::Rfc3339, OffsetDateTime};
 use tracing::{error, info};
 use tracing_subscriber::{fmt, layer::SubscriberExt, util::SubscriberInitExt, EnvFilter};
 
+mod config;
+mod errors;
 mod infra;
 mod models;
-mod old_models;
-mod schema;
+mod utils;
+
+#[derive(Clone)]
+pub struct AppState {
+    pool: Pool,
+}
 
 #[tokio::main]
 async fn main() {
@@ -36,12 +41,6 @@ async fn main() {
     }
 }
 
-#[derive(Debug, Deserialize)]
-#[serde(rename_all = "kebab-case")]
-struct Config {
-    api: api::Config,
-}
-
 fn init_tracing() -> Result<()> {
     tracing_subscriber::registry()
         .with(EnvFilter::from_default_env())
@@ -63,9 +62,17 @@ fn log_error(error: &impl Display) {
 }
 
 async fn run() -> Result<()> {
-    let config = Config::load().context("load configuration")?;
+    let config = config::config().await;
+
+    let manager = Manager::new(
+        config.db_url().to_string(),
+        deadpool_diesel::Runtime::Tokio1,
+    );
+    let pool = Pool::builder(manager).build().unwrap();
+
+    let state = AppState { pool };
 
     info!(?config, "starting");
 
-    api::serve(config.api).await
+    api::serve(config.api, state).await
 }

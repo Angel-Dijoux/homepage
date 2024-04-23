@@ -1,5 +1,6 @@
 use diesel::{ExpressionMethods, QueryDsl, RunQueryDsl, SelectableHelper};
 use serde::Deserialize;
+use uuid::Uuid;
 
 use crate::{
     infra::errors::{adapt_infra_error, InfraError},
@@ -28,6 +29,23 @@ pub async fn get_all(
             }
 
             query.select(Project::as_select()).load::<Project>(conn)
+        })
+        .await
+        .map_err(adapt_infra_error)?
+        .map_err(adapt_infra_error)?;
+
+    Ok(res)
+}
+
+pub async fn get(pool: &deadpool_diesel::postgres::Pool, id: Uuid) -> Result<Project, InfraError> {
+    let conn = pool.get().await.map_err(adapt_infra_error)?;
+
+    let res = conn
+        .interact(move |conn| {
+            project::table
+                .filter(project::id.eq(id))
+                .select(Project::as_select())
+                .get_result(conn)
         })
         .await
         .map_err(adapt_infra_error)?
