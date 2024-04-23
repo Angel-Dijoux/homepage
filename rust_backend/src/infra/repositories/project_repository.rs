@@ -4,7 +4,11 @@ use uuid::Uuid;
 
 use crate::{
     infra::errors::{adapt_infra_error, InfraError},
-    models::{label::Label, project::Project, project_label::ProjectWithLabels},
+    models::{
+        label::Label,
+        project::Project,
+        project_label::{ProjectLabel, ProjectWithLabels},
+    },
 };
 
 use crate::infra::db::schema::label;
@@ -58,7 +62,7 @@ pub async fn get(
     let labels = conn
         .interact(move |conn| {
             project_label::table
-                .inner_join(label::table.on(project_label::label_id.eq(label::id)))
+                .inner_join(label::table)
                 .filter(project_label::project_id.eq(id))
                 .select(Label::as_select())
                 .load::<Label>(conn)
