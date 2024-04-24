@@ -2,7 +2,7 @@ use axum::{extract::State, Json};
 use uuid::Uuid;
 
 use crate::{
-    infra::{errors::InfraError, repositories::project_repository},
+    infra::repositories::{Repositories, RepositoriesNames, SpecificReturnType},
     models::project_label::{ProjectLabelError, ProjectWithLabels},
     utils::PathExtractor,
     AppState,
@@ -12,12 +12,22 @@ pub async fn get_project(
     State(state): State<AppState>,
     PathExtractor(project_id): PathExtractor<Uuid>,
 ) -> Result<Json<ProjectWithLabels>, ProjectLabelError> {
-    let project = project_repository::get(&state.pool, project_id)
-        .await
-        .map_err(|db_error| match db_error {
-            InfraError::InternalServerError => ProjectLabelError::InternalServerError,
-            InfraError::NotFound => ProjectLabelError::NotFound(project_id),
-        })?;
-
-    Ok(Json(project))
+    if let Some(repo) = state
+        .repositories
+        .get(&RepositoriesNames::Project.to_string())
+    {
+        match repo {
+            Repositories::Project(project_repo) => {
+                let project = project_repo
+                    .get_one_by_id(&state.pool, project_id)
+                    .await
+                    .map_err(|_| ProjectLabelError::InternalServerError)?;
+                match project {
+                    SpecificReturnType::ProjectWithLabelCase(project) => Ok(Json(project)),
+                }
+            }
+        }
+    } else {
+        Err(ProjectLabelError::InternalServerError)
+    }
 }

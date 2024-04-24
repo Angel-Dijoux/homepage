@@ -1,24 +1,33 @@
 use crate::{
-    infra::repositories::project_repository::{get_all, ProjectFilter},
+    infra::repositories::{project_repository::ProjectFilter, Repositories, RepositoriesNames},
     models::project::{Project, ProjectError},
+    utils::PathExtractor,
     AppState,
 };
-use axum::{
-    extract::{Query, State},
-    Json,
-};
+use axum::{extract::State, Json};
 
 use super::ListProjectResponse;
 
 pub async fn list_projects(
     State(state): State<AppState>,
-    Query(params): Query<ProjectFilter>,
+    PathExtractor(params): PathExtractor<ProjectFilter>,
 ) -> Result<Json<ListProjectResponse>, ProjectError> {
-    let projects = get_all(&state.pool, params)
-        .await
-        .map_err(|_| ProjectError::InternalServerError)?;
-
-    Ok(Json(adapt_projects_to_list_projects_response(projects)))
+    if let Some(repo) = state
+        .repositories
+        .get(&RepositoriesNames::Project.to_string())
+    {
+        match repo {
+            Repositories::Project(project_repo) => {
+                let projects = project_repo
+                    .get_all(&state.pool, params)
+                    .await
+                    .map_err(|_| ProjectError::InternalServerError)?;
+                Ok(Json(adapt_projects_to_list_projects_response(projects)))
+            }
+        }
+    } else {
+        Err(ProjectError::InternalServerError)
+    }
 }
 
 fn adapt_projects_to_list_projects_response(projects: Vec<Project>) -> ListProjectResponse {
