@@ -1,0 +1,17 @@
+name: dprint check
+
+on:
+  push:
+    paths:
+      - front_vite/**
+      - .github/workflows/dprint.yaml
+      - dprint.json
+
+jobs:
+  dprint-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Run dprint
+        uses: dprint/check@v2.2
