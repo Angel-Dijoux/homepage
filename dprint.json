@@ -92,6 +92,7 @@
     "**/dist-ssr",
     "**/*.local",
     "front_vite/src/*.gen.*",
+    "**/bindings",
     "rust_backend"
   ],
   "plugins": [
