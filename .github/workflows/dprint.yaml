@@ -1,6 +1,14 @@
 name: dprint check
 
-on: [push]
+on:
+  push:
+    paths:
+      - front_vite/**
+      - .github/workflows/dprint.yml
+
+defaults:
+  run:
+    working-directory: front_vite
 
 jobs:
   dprint-check:
