@@ -1,13 +1,13 @@
-mod api;
-
+use crate::infra::repositories::{get_repositories_state, Repositories};
 use anyhow::{Context, Result};
 use deadpool_diesel::postgres::{Manager, Pool};
 use serde_json::json;
-use std::{fmt::Display, panic};
+use std::{collections::HashMap, fmt::Display, panic, sync::Arc};
 use time::{format_description::well_known::Rfc3339, OffsetDateTime};
 use tracing::{error, info};
 use tracing_subscriber::{fmt, layer::SubscriberExt, util::SubscriberInitExt, EnvFilter};
 
+mod api;
 mod config;
 mod errors;
 mod infra;
@@ -17,6 +17,7 @@ mod utils;
 #[derive(Clone)]
 pub struct AppState {
     pool: Pool,
+    repositories: HashMap<String, Repositories>,
 }
 
 #[tokio::main]
@@ -70,7 +71,10 @@ async fn run() -> Result<()> {
     );
     let pool = Pool::builder(manager).build().unwrap();
 
-    let state = AppState { pool };
+    let state = AppState {
+        pool,
+        repositories: get_repositories_state(),
+    };
 
     info!(?config, "starting");
 

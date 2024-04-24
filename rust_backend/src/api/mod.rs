@@ -38,7 +38,7 @@ pub async fn serve(config: ServerConfig, state: AppState) -> Result<()> {
     } = config;
 
     let app: Router = Router::new()
-        .nest("/v0/api/", app(state.clone()))
+        .nest("/v0/api/", app())
         .layer(
             CorsLayer::new()
                 .allow_origin(origins)
