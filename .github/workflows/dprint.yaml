@@ -6,12 +6,16 @@ on:
       - front_vite/**
       - .github/workflows/dprint.yaml
 
+defaults:
+  run:
+    working-directory: ./front_vite/
+
 jobs:
   dprint-check:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./front_vite
+        working-directory: ./front_vite/
     steps:
       - name: Checkout
         uses: actions/checkout@v3
