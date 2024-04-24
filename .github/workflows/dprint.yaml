@@ -13,10 +13,9 @@ defaults:
 jobs:
   dprint-check:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: "./front_vite"
     name: check
     steps:
       - uses: actions/checkout@v3
       - uses: dprint/check@v2.2
+        with:
+          config-path: ./front_vite/dprint.json
