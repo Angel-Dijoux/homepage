@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - front_vite/**
-      - .github/workflows/dprint.yml
+      - .github/workflows/dprint.yaml
 
 defaults:
   run:
