@@ -1,0 +1,11 @@
+name: dprint check
+
+on: [push]
+
+jobs:
+  dprint-check:
+    runs-on: ubuntu-latest
+    name: check
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dprint/check@v2.2
