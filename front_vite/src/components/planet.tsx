@@ -1,6 +1,6 @@
+import { useSpring } from "@react-spring/web";
 import createGlobe, { Marker } from "cobe";
 import { useEffect, useRef } from "react";
-import { useSpring } from "@react-spring/web";
 import { useTheme } from "./ThemeProvider";
 
 const MARKERS: Marker[] = [
@@ -26,7 +26,7 @@ export default function Planet() {
   }));
 
   useEffect(() => {
-    if (!canvasRef.current) return;
+    if (!canvasRef.current) { return; }
     let phi = 0;
     let width = 0;
     const onResize = () =>
@@ -78,8 +78,8 @@ export default function Planet() {
       <canvas
         ref={canvasRef}
         onPointerDown={(e) => {
-          pointerInteracting.current =
-            e.clientX - pointerInteractionMovement.current;
+          pointerInteracting.current = e.clientX
+            - pointerInteractionMovement.current;
           if (canvasRef.current) {
             canvasRef.current.style.cursor = "grabbing";
           }

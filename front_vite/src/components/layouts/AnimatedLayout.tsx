@@ -28,15 +28,17 @@ export const AnimatedLayout = ({
       transition={{ duration: 0.4, type: "easeInOut" }}
       style={{ position: "relative", marginBottom: 24 }}
     >
-      {title ? (
-        <Helmet>
-          <title>{t}</title>
-          <meta name="twitter:title" content={t} />
-          <meta property="og:title" content={t} />
-          {imgSrc ? <meta name="twitter:image" content={imgSrc} /> : null}
-          {imgSrc ? <meta property="og:image" content={imgSrc} /> : null}
-        </Helmet>
-      ) : null}
+      {title
+        ? (
+          <Helmet>
+            <title>{t}</title>
+            <meta name="twitter:title" content={t} />
+            <meta property="og:title" content={t} />
+            {imgSrc ? <meta name="twitter:image" content={imgSrc} /> : null}
+            {imgSrc ? <meta property="og:image" content={imgSrc} /> : null}
+          </Helmet>
+        )
+        : null}
       {children}
     </motion.article>
   );

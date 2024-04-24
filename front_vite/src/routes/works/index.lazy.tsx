@@ -1,12 +1,12 @@
 import { ListProjectResponse } from "@/bindings/ListProjectResponse";
 import { Divider } from "@/components/Divider";
 import { WorkGridItem } from "@/components/GridItem";
+import { AnimatedLayout } from "@/components/layouts/AnimatedLayout";
 import { MarkdownWrapper } from "@/components/MarkdownWrapper";
 import { Section } from "@/components/Section";
-import { AnimatedLayout } from "@/components/layouts/AnimatedLayout";
 import { SkeletonImage } from "@/components/skeletons/SkeletonImage";
-import Typography from "@/components/ui/Typography";
 import { Skeleton } from "@/components/ui/skeleton";
+import Typography from "@/components/ui/Typography";
 import { createLazyFileRoute } from "@tanstack/react-router";
 import useSWR from "swr";
 
@@ -19,12 +19,14 @@ const calculateDelay = (index: number, offset: number) => {
 };
 
 function Works() {
-  const { data: projects, isLoading } =
-    useSWR<ListProjectResponse>("/projects/true");
-  const { data: persoProjects, isLoading: persoIsLoading } =
-    useSWR<ListProjectResponse>(!isLoading ? "/projects/false" : null);
+  const { data: projects, isLoading } = useSWR<ListProjectResponse>(
+    "/projects/true",
+  );
+  const { data: persoProjects, isLoading: persoIsLoading } = useSWR<
+    ListProjectResponse
+  >(!isLoading ? "/projects/false" : null);
 
-  if (isLoading || persoIsLoading) return <SkeletonCard length={4} />;
+  if (isLoading || persoIsLoading) { return <SkeletonCard length={4} />; }
   return (
     <AnimatedLayout title="Works">
       <Typography variant="h3">Works</Typography>

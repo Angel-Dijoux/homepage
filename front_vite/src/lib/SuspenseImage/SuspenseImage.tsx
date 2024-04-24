@@ -13,7 +13,7 @@ type Resource<Payload> = {
 };
 
 function createResource<Payload>(
-  asyncFn: () => Promise<Payload>
+  asyncFn: () => Promise<Payload>,
 ): Resource<Payload> {
   let status: Status = Status.PENDING;
   let result: any;
@@ -26,7 +26,7 @@ function createResource<Payload>(
     (e: Error) => {
       status = Status.ERROR;
       result = e;
-    }
+    },
   );
   return {
     read(): Payload {
@@ -46,7 +46,7 @@ const cache = new Map<string, any>();
 
 function loadImage(source: string): Resource<string> {
   let resource = cache.get(source);
-  if (resource) return resource;
+  if (resource) { return resource; }
   resource = createResource<string>(
     () =>
       new Promise((resolve, reject) => {
@@ -54,16 +54,15 @@ function loadImage(source: string): Resource<string> {
         img.src = source;
         img.addEventListener("load", () => resolve(source));
         img.addEventListener("error", () =>
-          reject(new Error(`Failed to load image ${source}`))
-        );
-      })
+          reject(new Error(`Failed to load image ${source}`)));
+      }),
   );
   cache.set(source, resource);
   return resource;
 }
 
 export function SuspenseImage(
-  props: Readonly<React.ImgHTMLAttributes<HTMLImageElement>>
+  props: Readonly<React.ImgHTMLAttributes<HTMLImageElement>>,
 ): JSX.Element {
   const { src, alt, ...rest } = props;
 

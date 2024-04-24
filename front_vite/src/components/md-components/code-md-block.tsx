@@ -1,3 +1,4 @@
+import { CopyIcon } from "@radix-ui/react-icons";
 import { PropsWithChildren, useState } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import {
@@ -6,7 +7,6 @@ import {
 } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { useTheme } from "../ThemeProvider";
 import { ButtonWithIcon } from "../ui/ButtonWithIcon";
-import { CopyIcon } from "@radix-ui/react-icons";
 
 async function copyTextToClipboard(text: string) {
   if ("clipboard" in navigator) {
@@ -43,40 +43,40 @@ export function CodeMdBlock({
     <div
       className="relative"
       onMouseEnter={() =>
-        !inline && match ? setShowCopyButton((prev) => !prev) : null
-      }
+        !inline && match ? setShowCopyButton((prev) => !prev) : null}
       onMouseLeave={() =>
-        !inline && match ? setShowCopyButton((prev) => !prev) : null
-      }
+        !inline && match ? setShowCopyButton((prev) => !prev) : null}
       role="button"
       tabIndex={0}
     >
-      {!inline && match ? (
-        <div>
-          <SyntaxHighlighter
-            language={match[1]}
-            style={theme == "dark" ? oneDark : oneLight}
-            showLineNumbers
-            wrapLines
-            showInlineLineNumbers
-            wrapLongLines
-            PreTag="div"
-          >
-            {String(children).replace(/\n$/, "")}
-          </SyntaxHighlighter>
-          {showCopyButton && (
-            <ButtonWithIcon
-              IconLeft={<CopyIcon width={ICON_SIZE} height={ICON_SIZE} />}
-              className="absolute top-0 right-0 z-10 px-2 py-1 m-4"
-              onClick={handleCopy}
-            />
-          )}
-        </div>
-      ) : (
-        <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">
-          {children}
-        </code>
-      )}
+      {!inline && match
+        ? (
+          <div>
+            <SyntaxHighlighter
+              language={match[1]}
+              style={theme == "dark" ? oneDark : oneLight}
+              showLineNumbers
+              wrapLines
+              showInlineLineNumbers
+              wrapLongLines
+              PreTag="div"
+            >
+              {String(children).replace(/\n$/, "")}
+            </SyntaxHighlighter>
+            {showCopyButton && (
+              <ButtonWithIcon
+                IconLeft={<CopyIcon width={ICON_SIZE} height={ICON_SIZE} />}
+                className="absolute top-0 right-0 z-10 px-2 py-1 m-4"
+                onClick={handleCopy}
+              />
+            )}
+          </div>
+        )
+        : (
+          <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">
+            {children}
+          </code>
+        )}
     </div>
   );
 }

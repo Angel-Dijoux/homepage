@@ -1,10 +1,11 @@
 import { PropsWithChildren } from "react";
-import { Button } from "../ui/button";
 import { ExtraProps } from "react-markdown";
+import { Button } from "../ui/button";
 
-type LinkWithButtonProps = React.ClassAttributes<HTMLAnchorElement> &
-  React.AnchorHTMLAttributes<HTMLAnchorElement> &
-  ExtraProps;
+type LinkWithButtonProps =
+  & React.ClassAttributes<HTMLAnchorElement>
+  & React.AnchorHTMLAttributes<HTMLAnchorElement>
+  & ExtraProps;
 
 export const LinkWithButton = ({
   href,
