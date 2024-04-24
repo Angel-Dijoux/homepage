@@ -5,8 +5,9 @@ export type ArgProps<T> = {
 const PROD_BASE_URL = "https://portefolio.dynv6.net/api";
 const DEV_BASE_URL = "http://localhost:8080/api";
 
-const BASE_URL =
-  process.env.NODE_ENV === "development" ? DEV_BASE_URL : PROD_BASE_URL;
+const BASE_URL = process.env.NODE_ENV === "development"
+  ? DEV_BASE_URL
+  : PROD_BASE_URL;
 
 /**
  * Makes a network request using the Fetch API with specified options.
@@ -24,14 +25,14 @@ export default async function fetcher<T>(
   url: string,
   requestOptions: RequestInit = {
     method: "GET",
-  }
+  },
 ): Promise<T> {
   try {
     const response = await fetch(`${BASE_URL}${url}`, requestOptions);
 
     if (!response.ok) {
       throw new Error(
-        `Network request to ${url} failed with status ${response.status} (${response.statusText}).`
+        `Network request to ${url} failed with status ${response.status} (${response.statusText}).`,
       );
     }
 

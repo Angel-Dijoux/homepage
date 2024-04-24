@@ -1,16 +1,16 @@
-import { MarkdownWrapper } from "@/components/MarkdownWrapper";
+import { ProjectWithLabels } from "@/bindings/ProjectWithLabels";
 import { AnimatedLayout } from "@/components/layouts/AnimatedLayout";
+import { MarkdownWrapper } from "@/components/MarkdownWrapper";
 import { SkeletonImage } from "@/components/skeletons/SkeletonImage";
-import Typography from "@/components/ui/Typography";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { ButtonWithIcon } from "@/components/ui/ButtonWithIcon";
+import Typography from "@/components/ui/Typography";
 import { SuspenseImage } from "@/lib/SuspenseImage/SuspenseImage";
+import { FileIcon, GitHubLogoIcon } from "@radix-ui/react-icons";
 import { createFileRoute } from "@tanstack/react-router";
 import { Suspense } from "react";
 import useSWR from "swr";
-import { ButtonWithIcon } from "@/components/ui/ButtonWithIcon";
-import { FileIcon, GitHubLogoIcon } from "@radix-ui/react-icons";
-import { ProjectWithLabels } from "@/bindings/ProjectWithLabels";
 
 export const Route = createFileRoute("/works/$id")({
   component: WorkDetails,
@@ -19,10 +19,10 @@ export const Route = createFileRoute("/works/$id")({
 function WorkDetails() {
   const { id } = Route.useParams();
   const { data: project, isLoading } = useSWR<ProjectWithLabels>(
-    `/project/${id}`
+    `/project/${id}`,
   );
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) { return <div>Loading...</div>; }
   return (
     <AnimatedLayout title={project?.title} imgSrc={project?.image_url}>
       <Typography variant="h3" className="my-4">
@@ -53,20 +53,24 @@ function WorkDetails() {
             View on GitHub
           </ButtonWithIcon>
         </a>
-        {project?.file_uri ? (
-          <a href={project.file_uri} target="_blank">
-            <ButtonWithIcon
-              IconLeft={<FileIcon width={ICON_SIZE} height={ICON_SIZE} />}
-            >
-              File
-            </ButtonWithIcon>
-          </a>
-        ) : null}
-        {project?.project_url ? (
-          <a href={project.project_url} target="_blank">
-            <Button>Visite</Button>
-          </a>
-        ) : null}
+        {project?.file_uri
+          ? (
+            <a href={project.file_uri} target="_blank">
+              <ButtonWithIcon
+                IconLeft={<FileIcon width={ICON_SIZE} height={ICON_SIZE} />}
+              >
+                File
+              </ButtonWithIcon>
+            </a>
+          )
+          : null}
+        {project?.project_url
+          ? (
+            <a href={project.project_url} target="_blank">
+              <Button>Visite</Button>
+            </a>
+          )
+          : null}
       </div>
       <div className="mt-14">
         <MarkdownWrapper content={project?.description} textOnly={false} />

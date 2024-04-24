@@ -1,17 +1,17 @@
+import { cn } from "@/lib/utils";
+import { motion, MotionProps } from "framer-motion";
 import React, {
-  HTMLAttributes,
   type ForwardedRef,
+  HTMLAttributes,
   type PropsWithChildren,
 } from "react";
-import { motion, MotionProps } from "framer-motion";
-import { cn } from "@/lib/utils";
 
 type StyledDivProps = React.HTMLProps<HTMLDivElement> & MotionProps;
 
 const StyledDiv = React.forwardRef(
   ({ ...rest }: StyledDivProps, ref: ForwardedRef<HTMLDivElement>) => {
     return <motion.div {...rest} ref={ref} />;
-  }
+  },
 );
 
 type SectionProps = {

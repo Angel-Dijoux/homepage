@@ -3,6 +3,7 @@ import rehypeHighlight from "rehype-highlight";
 import remarkGfm from "remark-gfm";
 import remarkMermaid from "remark-mermaidjs";
 import { CodeMdBlock } from "./md-components/code-md-block";
+import { ImgMdWithTransitions } from "./md-components/img-md-with-transitions";
 import { LinkWithButton } from "./md-components/link-with-button";
 import { TypographyH1 } from "./md-components/typography-1";
 import { TypographyH2 } from "./md-components/typography-2";
@@ -10,7 +11,6 @@ import { TypographyH3 } from "./md-components/typography-3";
 import { TypographyH4 } from "./md-components/typography-4";
 import { TypographyP } from "./md-components/typography-p";
 import { TypographyBlockquote } from "./ui/TypographyBlockquote";
-import { ImgMdWithTransitions } from "./md-components/img-md-with-transitions";
 
 type MarkdownWrapperProps = {
   content?: string;
@@ -28,9 +28,9 @@ export function MarkdownWrapper({
     <div className="md-container">
       <Markdown
         // @ts-expect-error Type not supported yet.
-        remarkPlugins={
-          textOnly ? textOnlyRemarks : [...textOnlyRemarks, [remarkMermaid]]
-        }
+        remarkPlugins={textOnly
+          ? textOnlyRemarks
+          : [...textOnlyRemarks, [remarkMermaid]]}
         rehypePlugins={[rehypeHighlight]}
         className={className}
         components={{

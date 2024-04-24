@@ -1,5 +1,5 @@
-import { MarkdownWrapper } from "@/components/MarkdownWrapper";
 import { AnimatedLayout } from "@/components/layouts/AnimatedLayout";
+import { MarkdownWrapper } from "@/components/MarkdownWrapper";
 import Typography from "@/components/ui/Typography";
 import { createLazyFileRoute } from "@tanstack/react-router";
 

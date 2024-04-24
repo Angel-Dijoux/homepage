@@ -1,7 +1,7 @@
-import React, { PropsWithChildren } from "react";
-import { ButtonProps, buttonVariants } from "./button";
 import { cn } from "@/lib/utils";
 import { Slot } from "@radix-ui/react-slot";
+import React, { PropsWithChildren } from "react";
+import { ButtonProps, buttonVariants } from "./button";
 
 type ButtomWithIconProps = {
   IconLeft?: JSX.Element;
@@ -23,14 +23,14 @@ const ButtonWithIcon = React.forwardRef<
       IconRight,
       ...props
     },
-    ref
+    ref,
   ) => {
     const Comp = asChild ? Slot : "button";
     return (
       <Comp
         className={cn(
           "flex justify-center items-center gap-2",
-          cn(buttonVariants({ variant, size, className }))
+          cn(buttonVariants({ variant, size, className })),
         )}
         ref={ref}
         {...props}
@@ -40,7 +40,7 @@ const ButtonWithIcon = React.forwardRef<
         {IconRight}
       </Comp>
     );
-  }
+  },
 );
 ButtonWithIcon.displayName = "ButtonWithIcon";
 

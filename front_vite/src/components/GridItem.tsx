@@ -1,9 +1,9 @@
 import { SuspenseImage } from "@/lib/SuspenseImage/SuspenseImage";
 import { Link } from "@tanstack/react-router";
 import { PropsWithChildren, Suspense } from "react";
+import { MarkdownWrapper } from "./MarkdownWrapper";
 import { SkeletonImage } from "./skeletons/SkeletonImage";
 import { Button } from "./ui/button";
-import { MarkdownWrapper } from "./MarkdownWrapper";
 
 type GridItemProps = {
   href: string;

@@ -27,11 +27,9 @@ export function Header() {
           className="h-8 p-2 px-2"
           onClick={() => setTheme(theme == "light" ? "dark" : "light")}
         >
-          {theme == "light" ? (
-            <SunIcon className="h-4 w-4" />
-          ) : (
-            <MoonIcon className="h-4 w-4" />
-          )}
+          {theme == "light"
+            ? <SunIcon className="h-4 w-4" />
+            : <MoonIcon className="h-4 w-4" />}
         </Button>
       </div>
     </div>

@@ -1,19 +1,19 @@
+import { AnimatedLayout } from "@/components/layouts/AnimatedLayout";
 import Paragraph from "@/components/Paragraph";
 import { Section } from "@/components/Section";
-import { AnimatedLayout } from "@/components/layouts/AnimatedLayout";
+import { Button } from "@/components/ui/button";
 import { ButtonWithIcon } from "@/components/ui/ButtonWithIcon";
 import SectionTitle from "@/components/ui/SectionTitle";
-import Typography from "@/components/ui/Typography";
-import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import Typography from "@/components/ui/Typography";
 import {
   DoubleArrowRightIcon,
   GitHubLogoIcon,
   InstagramLogoIcon,
   LinkedInLogoIcon,
 } from "@radix-ui/react-icons";
-import { Link, createLazyFileRoute } from "@tanstack/react-router";
-import { Suspense, lazy } from "react";
+import { createLazyFileRoute, Link } from "@tanstack/react-router";
+import { lazy, Suspense } from "react";
 
 export const Route = createLazyFileRoute("/")({
   component: Home,

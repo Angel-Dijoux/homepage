@@ -11,7 +11,7 @@ function imageIsLandscape(source: string) {
 }
 
 export function ImgMdWithTransitions(
-  props: Readonly<React.ImgHTMLAttributes<HTMLImageElement>>
+  props: Readonly<React.ImgHTMLAttributes<HTMLImageElement>>,
 ) {
   const [isLandscape, setIsLandscape] = useState<boolean>(false);
 
@@ -33,7 +33,7 @@ export function ImgMdWithTransitions(
         <SuspenseImage
           className={cn(
             "rounded-md border h-full mx-2 my-8 object-cover",
-            isLandscape ? "w-full" : "w-8/12"
+            isLandscape ? "w-full" : "w-8/12",
           )}
           loading="lazy"
           decoding="async"
