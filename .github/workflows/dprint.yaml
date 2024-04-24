@@ -5,6 +5,7 @@ on:
     paths:
       - front_vite/**
       - .github/workflows/dprint.yaml
+      - dprint.json
 
 jobs:
   dprint-check:
