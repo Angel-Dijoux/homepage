@@ -11,10 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: front_vite
-    name: check
+        working-directory: ./front_vite
     steps:
-      - uses: actions/checkout@v3
-      - uses: dprint/check@v2.2
-        with:
-          config-path: ./front_vite/dprint.json
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Run dprint
+        uses: dprint/check@v2.2
