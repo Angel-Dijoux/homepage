@@ -24,6 +24,7 @@ RUN adduser \
     appuser
 COPY --from=builder /rust_backend /usr/local/bin
 RUN chown appuser /usr/local/bin/rust_backend
+COPY --from=builder /app/config /opt/rust_backend/config
 RUN chown -R appuser /opt/rust_backend
 USER appuser
 ENV RUST_LOG="rust_backend=debug,info"
