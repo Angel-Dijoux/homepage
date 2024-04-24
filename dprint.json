@@ -82,7 +82,13 @@
     "ignoreStartDirective": "dprint-ignore-start",
     "ignoreEndDirective": "dprint-ignore-end"
   },
-  "excludes": ["node_modules", "dist", "dist-ssr", "*.local"],
+  "excludes": [
+    "**/node_modules",
+    "**/dist",
+    "**/dist-ssr",
+    "**/*.local",
+    "rust_backend"
+  ],
   "plugins": [
     "https://plugins.dprint.dev/typescript-0.90.4.wasm",
     "https://plugins.dprint.dev/json-0.19.2.wasm",
