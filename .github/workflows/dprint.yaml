@@ -8,7 +8,7 @@ on:
 
 defaults:
   run:
-    working-directory: front_vite
+    working-directory: front_vite/
 
 jobs:
   dprint-check:
