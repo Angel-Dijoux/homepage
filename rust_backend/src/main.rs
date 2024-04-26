@@ -1,8 +1,9 @@
 use crate::infra::repositories::{get_repositories_state, Repositories};
 use anyhow::{Context, Result};
 use deadpool_diesel::postgres::{Manager, Pool};
+use infra::repositories::RepositoryName;
 use serde_json::json;
-use std::{collections::HashMap, fmt::Display, panic, sync::Arc};
+use std::{collections::HashMap, fmt::Display, panic};
 use time::{format_description::well_known::Rfc3339, OffsetDateTime};
 use tracing::{error, info};
 use tracing_subscriber::{fmt, layer::SubscriberExt, util::SubscriberInitExt, EnvFilter};
@@ -17,7 +18,7 @@ mod utils;
 #[derive(Clone)]
 pub struct AppState {
     pool: Pool,
-    repositories: HashMap<String, Repositories>,
+    repositories: HashMap<RepositoryName, Repositories>,
 }
 
 #[tokio::main]

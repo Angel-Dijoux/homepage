@@ -1,5 +1,5 @@
 use crate::{
-    infra::repositories::{project_repository::ProjectFilter, Repositories, RepositoriesNames},
+    infra::repositories::{project_repository::ProjectFilter, Repositories, RepositoryName},
     models::project::{Project, ProjectError},
     utils::PathExtractor,
     AppState,
@@ -12,19 +12,14 @@ pub async fn list_projects(
     State(state): State<AppState>,
     PathExtractor(params): PathExtractor<ProjectFilter>,
 ) -> Result<Json<ListProjectResponse>, ProjectError> {
-    if let Some(repo) = state
-        .repositories
-        .get(&RepositoriesNames::Project.to_string())
+    if let Some(Repositories::Project(project_repo)) =
+        state.repositories.get(&RepositoryName::Project)
     {
-        match repo {
-            Repositories::Project(project_repo) => {
-                let projects = project_repo
-                    .get_all(&state.pool, params)
-                    .await
-                    .map_err(|_| ProjectError::InternalServerError)?;
-                Ok(Json(adapt_projects_to_list_projects_response(projects)))
-            }
-        }
+        let projects = project_repo
+            .get_all(&state.pool, params)
+            .await
+            .map_err(|_| ProjectError::InternalServerError)?;
+        Ok(Json(adapt_projects_to_list_projects_response(projects)))
     } else {
         Err(ProjectError::InternalServerError)
     }

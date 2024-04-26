@@ -41,15 +41,10 @@ impl Repository<Project, ProjectFilter> for ProjectRepository {
 
         let res = conn
             .interact(move |conn| {
-                let mut query = project::table.into_boxed::<diesel::pg::Pg>();
-
-                if let Some(is_sio) = filter.is_sio {
-                    query = query.filter(project::is_sio.eq(is_sio));
-                } else {
-                    query = query.filter(project::is_sio.eq(false));
-                }
-
-                query.select(Project::as_select()).load::<Project>(conn)
+                project::table
+                    .filter(project::is_sio.eq(filter.is_sio.unwrap_or(false)))
+                    .select(Project::as_select())
+                    .load::<Project>(conn)
             })
             .await
             .map_err(adapt_infra_error)?
@@ -69,7 +64,8 @@ impl Repository<Project, ProjectFilter> for ProjectRepository {
             .interact(move |conn| {
                 project::table
                     .filter(project::id.eq(id))
-                    .first::<Project>(conn)
+                    .select(Project::as_select())
+                    .first(conn)
             })
             .await
             .map_err(adapt_infra_error)?

@@ -34,33 +34,16 @@ pub enum Repositories {
     Project(DynProjectRepository),
 }
 
-macro_rules! enum_to_string {
-    ($name:ident { $($variant:ident),* $(,)? }) => {
-        #[derive(Debug)]
-        pub enum $name {
-            $($variant),*
-        }
-
-        impl ToString for $name {
-            fn to_string(&self) -> String {
-                match self {
-                    $(Self::$variant => stringify!($variant).to_string()),*
-                }
-            }
-        }
-    };
+#[derive(Clone, PartialEq, Hash, Eq)]
+pub enum RepositoryName {
+    Project,
 }
 
-enum_to_string!(RepositoriesNames { Project });
-
-pub fn get_repositories_state() -> HashMap<String, Repositories> {
+pub fn get_repositories_state() -> HashMap<RepositoryName, Repositories> {
     let repo = Arc::new(ProjectRepository()) as DynProjectRepository;
 
-    let mut mapped_repositories: HashMap<String, Repositories> = HashMap::new();
-    mapped_repositories.insert(
-        RepositoriesNames::Project.to_string(),
-        Repositories::Project(repo),
-    );
+    let mut mapped_repositories: HashMap<RepositoryName, Repositories> = HashMap::new();
+    mapped_repositories.insert(RepositoryName::Project, Repositories::Project(repo));
 
     mapped_repositories
 }
