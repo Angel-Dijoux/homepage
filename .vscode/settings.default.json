@@ -1,8 +1,17 @@
 {
-  "editor.defaultFormatter": "dprint.dprint",
+  "[typescript]": {
+    "editor.defaultFormatter": "dprint.dprint"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "dprint.dprint"
+  },
   "editor.formatOnSave": true,
   "editor.formatOnType": false,
   "editor.formatOnPaste": true,
   "eslint.format.enable": true,
-  "dprint.path": "${workspaceFolder}/dprint.json"
+  "dprint.path": "${workspaceFolder}/dprint.json",
+  "rust-analyzer.linkedProjects": [
+    "${workspaceFolder}/rust_backend/Cargo.toml"
+  ],
+  "rust-analyzer.showUnlinkedFileNotification": false
 }
